@@ -1,5 +1,6 @@
 import random
-from dice import Dice
+from dataclasses import make_dataclass
+import pandas as pd
 
 
 class Encounter():
@@ -69,3 +70,58 @@ class Encounter():
         """
 
         pass
+
+    def attack(self, attacker_class='Monster', attacker_level=1, defendor_armor_type=10, defender_armor_class=10):
+        cleric_table = make_dataclass("cleric", [("ac", int), "level", int])
+
+        return True
+
+
+if __name__ == '__main__':
+    def combat_range(start, end, first):
+        twenty_run = 6
+        value_list = []
+        twenty_count = 1
+        current_value = first
+        for i in range(start, end, -1):
+            value_list.append(current_value)
+            if (current_value == 20) & (twenty_count < twenty_run):
+                twenty_count += 1
+            else:
+                current_value += 1
+
+        return value_list
+
+
+    level_1_3 = combat_range(start=10, end=-11, first=10)
+    level_4_6 = combat_range(start=10, end=-11, first=8)
+    level_7_9 = combat_range(start=10, end=-11, first=6)
+    level_10_12 = combat_range(start=10, end=-11, first=4)
+    level_13_15 = combat_range(start=10, end=-11, first=2)
+    level_16_18 = combat_range(start=10, end=-11, first=0)
+    level_19plus = combat_range(start=10, end=-11, first=-1)
+    # columns = range(10, -10, -1)
+    # df = pd.DataFrame({1: level_1_3})
+    # df.columns = list(columns)
+
+    df = pd.DataFrame({1: level_1_3,
+                       2: level_1_3,
+                       3: level_1_3,
+                       4: level_4_6,
+                       5: level_4_6,
+                       6: level_4_6,
+                       7: level_7_9,
+                       8: level_7_9,
+                       9: level_7_9,
+                       10: level_10_12,
+                       11: level_10_12,
+                       12: level_10_12,
+                       13: level_13_15,
+                       14: level_13_15,
+                       15: level_13_15,
+                       16: level_16_18,
+                       17: level_16_18,
+                       18: level_16_18,
+                       19: level_19plus}
+
+                      )
