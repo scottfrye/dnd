@@ -104,24 +104,24 @@ if __name__ == '__main__':
     # df = pd.DataFrame({1: level_1_3})
     # df.columns = list(columns)
 
-    df = pd.DataFrame({1: level_1_3,
-                       2: level_1_3,
-                       3: level_1_3,
-                       4: level_4_6,
-                       5: level_4_6,
-                       6: level_4_6,
-                       7: level_7_9,
-                       8: level_7_9,
-                       9: level_7_9,
-                       10: level_10_12,
-                       11: level_10_12,
-                       12: level_10_12,
-                       13: level_13_15,
-                       14: level_13_15,
-                       15: level_13_15,
-                       16: level_16_18,
-                       17: level_16_18,
-                       18: level_16_18,
-                       19: level_19plus}
+    df_all = pd.DataFrame({1: level_1_3,
+                           2: level_1_3,
+                           3: level_1_3,
+                           4: level_4_6,
+                           5: level_4_6,
+                           6: level_4_6,
+                           7: level_7_9,
+                           8: level_7_9,
+                           9: level_7_9,
+                           10: level_10_12,
+                           11: level_10_12,
+                           12: level_10_12,
+                           13: level_13_15,
+                           14: level_13_15,
+                           15: level_13_15,
+                           16: level_16_18,
+                           17: level_16_18,
+                           18: level_16_18,
+                           19: level_19plus}
 
-                      )
+                          )
