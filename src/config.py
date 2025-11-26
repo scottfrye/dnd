@@ -43,6 +43,6 @@ def load_config(path: str = "config.yaml") -> dict[str, Any]:
             config = yaml.safe_load(f)
             if config is None:
                 return copy.deepcopy(DEFAULT_CONFIG)
-            return config
+            return copy.deepcopy(config)
     except (yaml.YAMLError, OSError):
         return copy.deepcopy(DEFAULT_CONFIG)
