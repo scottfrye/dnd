@@ -85,6 +85,10 @@ class DiceRoller:
         # Parse modifier (default to 0 if not present)
         modifier = int(modifier_str) if modifier_str else 0
 
+        # Early return for zero dice
+        if count == 0:
+            return modifier
+
         # Roll the dice
         total = sum(self.roll_die(sides) for _ in range(count))
 
