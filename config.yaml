@@ -1,0 +1,14 @@
+# Configuration file for AD&D 1E Temple of Elemental Evil roguelike game
+# This file contains sample configuration values that can be customized
+
+# Logging configuration
+logging:
+  level: INFO
+
+# Data storage configuration
+data:
+  path: data
+
+# Save file configuration
+save:
+  format: json
