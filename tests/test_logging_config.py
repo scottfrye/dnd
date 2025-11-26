@@ -67,11 +67,14 @@ def test_setup_logging_creates_console_handler():
 
     root_logger = setup_logging(config)
 
-    # Check that there's at least one StreamHandler
+    # Check that there's exactly one StreamHandler (console handler)
     stream_handlers = [
-        h for h in root_logger.handlers if isinstance(h, logging.StreamHandler)
+        h
+        for h in root_logger.handlers
+        if isinstance(h, logging.StreamHandler)
+        and not isinstance(h, logging.FileHandler)
     ]
-    assert len(stream_handlers) >= 1
+    assert len(stream_handlers) == 1
 
 
 def test_setup_logging_creates_file_handler_when_file_specified():

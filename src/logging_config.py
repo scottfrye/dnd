@@ -64,6 +64,6 @@ def setup_logging(config: dict[str, Any]) -> logging.Logger:
         file_handler.setFormatter(formatter)
         root_logger.addHandler(file_handler)
 
-    logger.debug("Logging configured with level: %s", level_str)
+    root_logger.debug("Logging configured with level: %s", level_str)
 
     return root_logger
