@@ -135,24 +135,7 @@ class CombatStats:
     hit_modifier: int = 0
     damage_modifier: int = 0
 
-    def __post_init__(self) -> None:
-        """Validate combat stats."""
-        # THAC0 can range from negative (very powerful) to 20+ (weak)
-        # We allow a wide range for flexibility
-        if not isinstance(self.thac0, int):
-            raise ValueError(f"thac0 must be an integer, got {type(self.thac0)}")
-        if not isinstance(self.armor_class, int):
-            raise ValueError(
-                f"armor_class must be an integer, got {type(self.armor_class)}"
-            )
-        if not isinstance(self.hit_modifier, int):
-            raise ValueError(
-                f"hit_modifier must be an integer, got {type(self.hit_modifier)}"
-            )
-        if not isinstance(self.damage_modifier, int):
-            raise ValueError(
-                f"damage_modifier must be an integer, got {type(self.damage_modifier)}"
-            )
+
 
 
 @dataclass
