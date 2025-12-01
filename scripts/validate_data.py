@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 try:
-    from jsonschema import Draft7Validator, ValidationError
+    from jsonschema import Draft7Validator
 except ImportError:
     print("Error: jsonschema package not installed.")
     print("Install it with: pip install jsonschema")
@@ -59,10 +59,10 @@ def validate_file(
     return errors
 
 
-def validate_data_directory(data_dir: Path, schemas_dir: Path, verbose: bool = False) -> int:
+def validate_data_directory(data_dir: Path, schemas_dir: Path, verbose: bool = False) -> tuple[int, int]:
     """Validate all data files in the data directory.
     
-    Returns the total number of validation errors found.
+    Returns a tuple of (total_errors, total_files).
     """
     total_errors = 0
     total_files = 0
