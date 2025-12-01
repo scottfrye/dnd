@@ -1,0 +1,18 @@
+{
+  "name": "Goblin",
+  "hit_dice": "1d8",
+  "armor_class": 6,
+  "movement": 60,
+  "attacks": [
+    {
+      "name": "Short Sword",
+      "damage": "1d6"
+    }
+  ],
+  "special_abilities": [
+    "Infravision 60ft"
+  ],
+  "alignment": "lawful evil",
+  "treasure_type": "K",
+  "experience_value": 15
+}
