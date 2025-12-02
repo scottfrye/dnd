@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "monster.schema.json",
+  "title": "Monster",
+  "description": "Schema for AD&D 1E monster data",
+  "type": "object",
+  "required": ["name", "hit_dice", "armor_class"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the monster"
+    },
+    "hit_dice": {
+      "type": "string",
+      "description": "Hit dice expression (e.g., '2d8', '1d4+1')",
+      "pattern": "^\\d+d\\d+(\\+\\d+)?$"
+    },
+    "armor_class": {
+      "type": "integer",
+      "description": "Armor class value",
+      "minimum": -10,
+      "maximum": 10
+    },
+    "movement": {
+      "type": "integer",
+      "description": "Movement rate in feet",
+      "minimum": 0
+    },
+    "attacks": {
+      "type": "array",
+      "description": "List of attack forms",
+      "items": {
+        "type": "object",
+        "required": ["name", "damage"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "damage": {
+            "type": "string",
+            "pattern": "^\\d+d\\d+(\\+\\d+)?$"
+          }
+        }
+      }
+    },
+    "special_abilities": {
+      "type": "array",
+      "description": "Special abilities of the monster",
+      "items": {
+        "type": "string"
+      }
+    },
+    "alignment": {
+      "type": "string",
+      "description": "Monster alignment",
+      "enum": [
+        "lawful good", "neutral good", "chaotic good",
+        "lawful neutral", "true neutral", "chaotic neutral",
+        "lawful evil", "neutral evil", "chaotic evil"
+      ]
+    },
+    "treasure_type": {
+      "type": "string",
+      "description": "Treasure type letter(s)"
+    },
+    "experience_value": {
+      "type": "integer",
+      "description": "Experience points awarded",
+      "minimum": 0
+    }
+  }
+}
