@@ -1,0 +1,30 @@
+{
+  "id": "temple_entrance",
+  "name": "Temple Entrance Hall",
+  "description": "A large stone chamber with crumbling pillars. Dust motes dance in the dim light filtering through cracks in the ceiling.",
+  "dimensions": {
+    "width": 40,
+    "height": 30
+  },
+  "exits": [
+    {
+      "direction": "north",
+      "target": "main_corridor"
+    },
+    {
+      "direction": "south",
+      "target": "outside"
+    },
+    {
+      "direction": "east",
+      "target": "guard_room",
+      "locked": true,
+      "key_id": "brass_key"
+    }
+  ],
+  "monsters": [],
+  "items": [
+    "torch_01"
+  ],
+  "light_level": "dim"
+}

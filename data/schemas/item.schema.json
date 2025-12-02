@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "item.schema.json",
+  "title": "Item",
+  "description": "Schema for AD&D 1E item data",
+  "type": "object",
+  "required": ["id", "name", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the item"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the item"
+    },
+    "type": {
+      "type": "string",
+      "description": "Item category",
+      "enum": ["weapon", "armor", "potion", "scroll", "wand", "ring", "misc", "treasure"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Text description of the item"
+    },
+    "weight": {
+      "type": "number",
+      "description": "Weight in pounds",
+      "minimum": 0
+    },
+    "value": {
+      "type": "object",
+      "description": "Monetary value",
+      "properties": {
+        "gold": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "silver": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "copper": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "magical": {
+      "type": "boolean",
+      "description": "Whether the item is magical",
+      "default": false
+    },
+    "bonus": {
+      "type": "integer",
+      "description": "Magical bonus (e.g., +1, +2)",
+      "minimum": -5,
+      "maximum": 5
+    },
+    "damage": {
+      "type": "string",
+      "description": "Damage dice for weapons",
+      "pattern": "^\\d+d\\d+(\\+\\d+)?$"
+    },
+    "armor_class_bonus": {
+      "type": "integer",
+      "description": "AC bonus for armor/shields"
+    },
+    "charges": {
+      "type": "integer",
+      "description": "Charges remaining for charged items",
+      "minimum": 0
+    },
+    "effects": {
+      "type": "array",
+      "description": "Special effects of the item",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
