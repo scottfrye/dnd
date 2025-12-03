@@ -1,5 +1,7 @@
 # Temple of Elemental Evil - AD&D 1E Roguelike
 
+[![CI](https://github.com/scottfrye/dnd/actions/workflows/ci.yml/badge.svg)](https://github.com/scottfrye/dnd/actions/workflows/ci.yml)
+
 ## Purpose
 
 A game similar to Nethack that uses the Advanced Dungeon and Dragons (1st Edition) rules. The dungeon will be from the adventure module The Temple of Elemental Evil. The rule books and adventure modules are included in PDF form and should be referenced when creating the game.
