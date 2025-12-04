@@ -29,6 +29,8 @@ dnd/
 │   └── world/         # World, maps, and location management
 ├── tests/             # Unit and integration tests
 ├── pyproject.toml     # Python project configuration
+├── CHANGELOG.md       # Version history and release notes
+├── CONTRIBUTING.md    # Contributing guidelines
 └── README.md          # This file
 ```
 
@@ -36,9 +38,13 @@ dnd/
 
 ### Requirements
 
-- Python 3.12+
+- Python 3.12, 3.13, 3.14 or above
+- Supported on Windows, macOS, and Linux
+- Compatible with Anaconda/Miniconda environments
 
 ### Setup
+
+#### Using pip
 
 ```bash
 # Install development dependencies
@@ -47,3 +53,21 @@ pip install -e ".[dev]"
 # Run tests
 pytest
 ```
+
+#### Using Anaconda
+
+```bash
+# Create a new conda environment
+conda create -n dnd python=3.12
+conda activate dnd
+
+# Install development dependencies
+pip install -e ".[dev]"
+
+# Run tests
+pytest
+```
+
+### Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
