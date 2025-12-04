@@ -7,7 +7,7 @@ name = "dnd"
 version = "0.1.0"
 description = "AD&D 1E Temple of Elemental Evil roguelike game"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 license = {text = "MIT"}
 classifiers = [
     "Development Status :: 3 - Alpha",
