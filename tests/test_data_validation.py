@@ -94,6 +94,7 @@ class TestValidatorScript:
             [sys.executable, str(VALIDATOR_SCRIPT)],
             capture_output=True,
             text=True,
+            encoding="utf-8",
             cwd=str(REPO_ROOT),
         )
         assert result.returncode == 0, f"Validator failed: {result.stderr}"
@@ -105,6 +106,7 @@ class TestValidatorScript:
             [sys.executable, str(VALIDATOR_SCRIPT), "--verbose"],
             capture_output=True,
             text=True,
+            encoding="utf-8",
             cwd=str(REPO_ROOT),
         )
         assert result.returncode == 0
