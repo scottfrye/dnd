@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 # Ensure stdout uses UTF-8 encoding to handle unicode characters on all platforms
-if sys.stdout.encoding != 'utf-8':
+if sys.stdout.encoding and sys.stdout.encoding.lower() not in ('utf-8', 'utf8'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 try:
