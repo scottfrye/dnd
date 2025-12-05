@@ -57,3 +57,24 @@ class Entity:
             },
             "properties": self.properties.copy(),
         }
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "Entity":
+        """Deserialize an entity from a dictionary.
+
+        Args:
+            data: Dictionary representation of the entity.
+
+        Returns:
+            A new Entity instance created from the dictionary data.
+        """
+        position = Position(
+            x=data["position"]["x"],
+            y=data["position"]["y"],
+            location_id=data["position"]["location_id"],
+        )
+        return cls(
+            id=data["id"],
+            position=position,
+            properties=data.get("properties", {}).copy(),
+        )
