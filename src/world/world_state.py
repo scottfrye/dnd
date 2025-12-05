@@ -77,6 +77,14 @@ class WorldState:
         """
         return self._entities.get(entity_id)
 
+    def get_all_entity_ids(self) -> list[str]:
+        """Get a list of all entity IDs in the world.
+
+        Returns:
+            A list of entity IDs currently registered in the world.
+        """
+        return list(self._entities.keys())
+
     def tick(self) -> int:
         """Advance the game time by one tick.
 

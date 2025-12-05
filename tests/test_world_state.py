@@ -94,6 +94,46 @@ class TestWorldStateEntityManagement:
 
         assert result is None
 
+    def test_get_all_entity_ids_empty_world(self):
+        """Test getting all entity IDs from an empty world returns empty list."""
+        world = WorldState()
+
+        result = world.get_all_entity_ids()
+
+        assert result == []
+
+    def test_get_all_entity_ids_single_entity(self):
+        """Test getting all entity IDs with one entity."""
+        world = WorldState()
+        pos = Position(x=0, y=0, location_id="test")
+        entity = Entity(id="entity_1", position=pos)
+        world.add_entity(entity)
+
+        result = world.get_all_entity_ids()
+
+        assert len(result) == 1
+        assert "entity_1" in result
+
+    def test_get_all_entity_ids_multiple_entities(self):
+        """Test getting all entity IDs with multiple entities."""
+        world = WorldState()
+        pos1 = Position(x=0, y=0, location_id="test")
+        pos2 = Position(x=1, y=1, location_id="test")
+        pos3 = Position(x=2, y=2, location_id="test")
+        entity1 = Entity(id="entity_1", position=pos1)
+        entity2 = Entity(id="entity_2", position=pos2)
+        entity3 = Entity(id="entity_3", position=pos3)
+        world.add_entity(entity1)
+        world.add_entity(entity2)
+        world.add_entity(entity3)
+
+        result = world.get_all_entity_ids()
+
+        assert len(result) == 3
+        assert "entity_1" in result
+        assert "entity_2" in result
+        assert "entity_3" in result
+
 
 class TestWorldStateTick:
     """Tests for the tick/time system."""
