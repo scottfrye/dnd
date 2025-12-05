@@ -330,7 +330,7 @@ class TestScheduledEventDataclass:
         assert event.tick == 10
         assert event.callback is not None
         assert event.args == ()
-        assert event.kwargs == {}
+        assert event.kwargs is None
         assert event.event_id is None
 
     def test_scheduled_event_with_all_fields(self):

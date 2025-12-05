@@ -30,11 +30,6 @@ class ScheduledEvent:
     kwargs: dict[str, Any] | None = None
     event_id: str | None = None
 
-    def __post_init__(self) -> None:
-        """Initialize kwargs as empty dict if None."""
-        if self.kwargs is None:
-            self.kwargs = {}
-
 
 class EventSystem:
     """Manages scheduling and dispatching of time-based events.
@@ -88,7 +83,7 @@ class EventSystem:
             tick=tick,
             callback=callback,
             args=args,
-            kwargs=kwargs,
+            kwargs=kwargs if kwargs else {},
             event_id=event_id,
         )
         self._events.append(event)
@@ -134,8 +129,8 @@ class EventSystem:
                 )
                 results.append((event.event_id, e))
 
-            # Remove the fired event from the queue
-            self._events.remove(event)
+        # Remove all fired events from the queue efficiently
+        self._events = [e for e in self._events if e not in events_to_fire]
 
         return results
 
@@ -155,6 +150,17 @@ class EventSystem:
                 return True
         return False
 
+    def _get_callback_name(self, callback: Callable[..., Any]) -> str:
+        """Get a readable name for a callback function.
+
+        Args:
+            callback: The callback function.
+
+        Returns:
+            The callback's __name__ attribute if available, otherwise str representation.
+        """
+        return callback.__name__ if hasattr(callback, "__name__") else str(callback)
+
     def get_pending_events(self) -> list[dict[str, Any]]:
         """Get information about all pending events.
 
@@ -165,9 +171,7 @@ class EventSystem:
             {
                 "tick": event.tick,
                 "event_id": event.event_id,
-                "callback": event.callback.__name__
-                if hasattr(event.callback, "__name__")
-                else str(event.callback),
+                "callback": self._get_callback_name(event.callback),
             }
             for event in self._events
         ]
