@@ -68,6 +68,31 @@ pip install -e ".[dev]"
 pytest
 ```
 
+### Terminal UI Demo
+
+To test the terminal UI implementation, run the smoke test demo:
+
+```bash
+python scripts/terminal_ui_demo.py
+```
+
+This will launch a simple interactive terminal display showing:
+- An ASCII map with walls (`#`) and floors (`.`)
+- Your character represented by `@` that you can move around
+- A status area showing character information
+- A message log displaying game events
+
+**Controls:**
+- `hjkl` - Vi-keys for movement (h=west, j=south, k=north, l=east)
+- Arrow keys - Alternative movement controls
+- Numpad (2468) - Another movement option
+- `.` or `5` - Wait/rest
+- `?` - Help
+- `q` - Quit
+
+The demo showcases the abstracted Display and InputHandler interfaces that allow
+for different UI backends to be implemented in the future (GUI, web, etc.).
+
 ### Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
