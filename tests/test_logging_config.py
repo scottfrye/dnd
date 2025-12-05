@@ -28,7 +28,7 @@ def test_setup_logging_creates_log_file_in_temp_directory():
         log_file = os.path.join(temp_dir, "test.log")
         config = {"logging": {"level": "INFO", "file": log_file}}
 
-        setup_logging(config)
+        root_logger = setup_logging(config)
 
         # Write a log message to trigger file creation
         test_logger = logging.getLogger("test_logger")
@@ -41,6 +41,11 @@ def test_setup_logging_creates_log_file_in_temp_directory():
         with open(log_file, "r", encoding="utf-8") as f:
             content = f.read()
             assert "Test log message" in content
+
+        # Close and remove handlers to release file handles (important for Windows)
+        for handler in root_logger.handlers[:]:
+            handler.close()
+            root_logger.removeHandler(handler)
 
 
 def test_setup_logging_with_default_level():
@@ -91,6 +96,11 @@ def test_setup_logging_creates_file_handler_when_file_specified():
         ]
         assert len(file_handlers) == 1
 
+        # Close and remove handlers to release file handles (important for Windows)
+        for handler in root_logger.handlers[:]:
+            handler.close()
+            root_logger.removeHandler(handler)
+
 
 def test_setup_logging_creates_nested_directories():
     """Test that setup_logging creates nested directories for log file."""
@@ -98,10 +108,15 @@ def test_setup_logging_creates_nested_directories():
         log_file = os.path.join(temp_dir, "nested", "dir", "test.log")
         config = {"logging": {"level": "INFO", "file": log_file}}
 
-        setup_logging(config)
+        root_logger = setup_logging(config)
 
         # Write a log message to trigger file creation
         test_logger = logging.getLogger("nested_test")
         test_logger.info("Nested directory test")
 
         assert os.path.exists(log_file)
+
+        # Close and remove handlers to release file handles (important for Windows)
+        for handler in root_logger.handlers[:]:
+            handler.close()
+            root_logger.removeHandler(handler)
