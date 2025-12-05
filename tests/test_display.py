@@ -74,6 +74,7 @@ class TestDisplayAbstractClass:
 
     def test_all_abstract_methods_must_be_implemented(self):
         """Test that all abstract methods must be implemented."""
+
         # Create a class that doesn't implement all methods
         class IncompleteDisplay(Display):
             def initialize(self):

@@ -266,7 +266,9 @@ class TestEventCancellation:
         event_system = EventSystem()
         called = []
 
-        event_id = event_system.schedule(10, lambda: called.append(True), event_id="test_event")
+        event_id = event_system.schedule(
+            10, lambda: called.append(True), event_id="test_event"
+        )
 
         result = event_system.cancel_event(event_id)
 
@@ -335,7 +337,10 @@ class TestScheduledEventDataclass:
 
     def test_scheduled_event_with_all_fields(self):
         """Test creating a ScheduledEvent with all fields."""
-        callback = lambda x, y: x + y
+
+        def callback(x, y):
+            return x + y
+
         event = ScheduledEvent(
             tick=50, callback=callback, args=(1, 2), kwargs={"z": 3}, event_id="test"
         )
@@ -454,9 +459,15 @@ class TestIntegrationWithTimeSystem:
         results = []
 
         # Schedule events at different time intervals
-        event_system.schedule(time_system.rounds_to_ticks(1), lambda: results.append("round"))
-        event_system.schedule(time_system.turns_to_ticks(1), lambda: results.append("turn"))
-        event_system.schedule(time_system.hours_to_ticks(1), lambda: results.append("hour"))
+        event_system.schedule(
+            time_system.rounds_to_ticks(1), lambda: results.append("round")
+        )
+        event_system.schedule(
+            time_system.turns_to_ticks(1), lambda: results.append("turn")
+        )
+        event_system.schedule(
+            time_system.hours_to_ticks(1), lambda: results.append("hour")
+        )
 
         # Advance time by 1 hour and dispatch
         time_system.advance(time_system.hours_to_ticks(1))

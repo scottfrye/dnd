@@ -6,7 +6,6 @@ dice notation (e.g., 1d6, 3d8+2, 2d10-1).
 
 import random
 import re
-from typing import Optional
 
 # Pattern to match dice notation: [count]d<sides>[+/-modifier]
 # Examples: d6, 1d6, 3d8+2, 2d10-1, d20+5
@@ -16,7 +15,7 @@ DICE_PATTERN = re.compile(r"^(\d*)d(\d+)([+-]\d+)?$", re.IGNORECASE)
 class DiceRoller:
     """A dice roller with optional seeding for deterministic results."""
 
-    def __init__(self, seed: Optional[int] = None):
+    def __init__(self, seed: int | None = None):
         """Initialize the dice roller.
 
         Args:

@@ -6,8 +6,6 @@ interface using the blessed library.
 
 from unittest.mock import MagicMock, Mock, patch
 
-import pytest
-
 from src.ui.display import Display
 from src.ui.terminal_display import TerminalDisplay
 

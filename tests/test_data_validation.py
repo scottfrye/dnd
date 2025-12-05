@@ -5,9 +5,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-import pytest
-
-
 # Get paths
 REPO_ROOT = Path(__file__).parent.parent
 VALIDATOR_SCRIPT = REPO_ROOT / "scripts" / "validate_data.py"
@@ -122,9 +119,9 @@ class TestSampleDataValidation:
 
         with open(SCHEMAS_DIR / "monster.schema.json") as f:
             schema = json.load(f)
-        
+
         validator = Draft7Validator(schema)
-        
+
         for monster_file in (DATA_DIR / "monsters").glob("*.json"):
             with open(monster_file) as f:
                 data = json.load(f)
@@ -137,9 +134,9 @@ class TestSampleDataValidation:
 
         with open(SCHEMAS_DIR / "location.schema.json") as f:
             schema = json.load(f)
-        
+
         validator = Draft7Validator(schema)
-        
+
         for location_file in (DATA_DIR / "locations").glob("*.json"):
             with open(location_file) as f:
                 data = json.load(f)
@@ -152,9 +149,9 @@ class TestSampleDataValidation:
 
         with open(SCHEMAS_DIR / "item.schema.json") as f:
             schema = json.load(f)
-        
+
         validator = Draft7Validator(schema)
-        
+
         for item_file in (DATA_DIR / "items").glob("*.json"):
             with open(item_file) as f:
                 data = json.load(f)

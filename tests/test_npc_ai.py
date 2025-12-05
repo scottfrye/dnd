@@ -8,8 +8,6 @@ These tests verify that:
 - Behaviors are decoupled from UI (only use Entity and WorldState)
 """
 
-import pytest
-
 from src.entities.entity import Entity, Position
 from src.simulation.npc_ai import (
     Action,
@@ -52,7 +50,9 @@ class TestAction:
 
     def test_create_action_with_data(self):
         """Test creating an Action with additional data."""
-        action = Action(action_type="cast_spell", data={"spell": "fireball", "level": 3})
+        action = Action(
+            action_type="cast_spell", data={"spell": "fireball", "level": 3}
+        )
 
         assert action.action_type == "cast_spell"
         assert action.data["spell"] == "fireball"
@@ -124,7 +124,10 @@ class TestPatrolBehavior:
         npc = Entity(
             id="npc_patrol_002",
             position=pos,
-            properties={"waypoints": [waypoint1, waypoint2], "current_waypoint_index": 0},
+            properties={
+                "waypoints": [waypoint1, waypoint2],
+                "current_waypoint_index": 0,
+            },
         )
 
         action = patrol_behavior(npc, world)
@@ -143,7 +146,10 @@ class TestPatrolBehavior:
         npc = Entity(
             id="npc_patrol_003",
             position=pos,
-            properties={"waypoints": [waypoint1, waypoint2], "current_waypoint_index": 0},
+            properties={
+                "waypoints": [waypoint1, waypoint2],
+                "current_waypoint_index": 0,
+            },
         )
 
         action = patrol_behavior(npc, world)
@@ -186,7 +192,10 @@ class TestPatrolBehavior:
         npc = Entity(
             id="npc_patrol_005",
             position=pos,
-            properties={"waypoints": [waypoint1, waypoint2], "current_waypoint_index": 0},
+            properties={
+                "waypoints": [waypoint1, waypoint2],
+                "current_waypoint_index": 0,
+            },
         )
         world.add_entity(npc)
 
@@ -267,7 +276,9 @@ class TestAttackOnSightBehavior:
 
         # Add a hostile target within range
         player_pos = Position(x=3, y=0, location_id="test")
-        player = Entity(id="player_001", position=player_pos, properties={"type": "player"})
+        player = Entity(
+            id="player_001", position=player_pos, properties={"type": "player"}
+        )
         world.add_entity(player)
 
         action = attack_on_sight_behavior(npc, world)
@@ -289,7 +300,9 @@ class TestAttackOnSightBehavior:
 
         # Add a hostile target out of range
         player_pos = Position(x=5, y=0, location_id="test")
-        player = Entity(id="player_002", position=player_pos, properties={"type": "player"})
+        player = Entity(
+            id="player_002", position=player_pos, properties={"type": "player"}
+        )
         world.add_entity(player)
 
         action = attack_on_sight_behavior(npc, world)
@@ -331,11 +344,15 @@ class TestAttackOnSightBehavior:
 
         # Add two hostile targets at different distances
         player1_pos = Position(x=5, y=0, location_id="test")
-        player1 = Entity(id="player_003", position=player1_pos, properties={"type": "player"})
+        player1 = Entity(
+            id="player_003", position=player1_pos, properties={"type": "player"}
+        )
         world.add_entity(player1)
 
         player2_pos = Position(x=2, y=0, location_id="test")
-        player2 = Entity(id="player_004", position=player2_pos, properties={"type": "player"})
+        player2 = Entity(
+            id="player_004", position=player2_pos, properties={"type": "player"}
+        )
         world.add_entity(player2)
 
         action = attack_on_sight_behavior(npc, world)
@@ -358,7 +375,9 @@ class TestAttackOnSightBehavior:
 
         # Add a hostile target in a different location
         player_pos = Position(x=2, y=0, location_id="dungeon_level_2")
-        player = Entity(id="player_005", position=player_pos, properties={"type": "player"})
+        player = Entity(
+            id="player_005", position=player_pos, properties={"type": "player"}
+        )
         world.add_entity(player)
 
         action = attack_on_sight_behavior(npc, world)
@@ -379,7 +398,9 @@ class TestAttackOnSightBehavior:
 
         # Add a hostile target at distance 5 (default range)
         player_pos = Position(x=5, y=0, location_id="test")
-        player = Entity(id="player_006", position=player_pos, properties={"type": "player"})
+        player = Entity(
+            id="player_006", position=player_pos, properties={"type": "player"}
+        )
         world.add_entity(player)
 
         action = attack_on_sight_behavior(npc, world)
@@ -401,7 +422,9 @@ class TestAttackOnSightBehavior:
 
         # Add a player (default hostile type)
         player_pos = Position(x=3, y=0, location_id="test")
-        player = Entity(id="player_007", position=player_pos, properties={"type": "player"})
+        player = Entity(
+            id="player_007", position=player_pos, properties={"type": "player"}
+        )
         world.add_entity(player)
 
         action = attack_on_sight_behavior(npc, world)
@@ -545,12 +568,15 @@ class TestBehaviorDecoupling:
         npc = Entity(
             id="patrol_npc",
             position=pos,
-            properties={"waypoints": [waypoint1, waypoint2], "current_waypoint_index": 0},
+            properties={
+                "waypoints": [waypoint1, waypoint2],
+                "current_waypoint_index": 0,
+            },
         )
         world.add_entity(npc)
 
         # Simulate several ticks
-        for i in range(5):
+        for _i in range(5):
             world.tick()
             action = patrol_behavior(npc, world)
             apply_action(action, npc, world)

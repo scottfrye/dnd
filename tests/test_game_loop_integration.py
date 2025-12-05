@@ -21,7 +21,7 @@ class TestGameLoopIntegration:
 
     def test_player_mode_with_move_action(self):
         """Test player mode with a move action applied via ActionHandler.
-        
+
         Demonstrates the full flow:
         1. Create world with entity
         2. Create GameEngine in player mode
@@ -67,7 +67,7 @@ class TestGameLoopIntegration:
         action = Action(action_type="move", target_position=target)
 
         # Move entity toward target over multiple steps
-        for i in range(3):
+        for _i in range(3):
             handler.handle_action(action, "hero")
             engine.step(action=action)
 
@@ -100,7 +100,7 @@ class TestGameLoopIntegration:
 
     def test_headless_mode_advances_ticks(self):
         """Test headless mode automatically advances world ticks.
-        
+
         Demonstrates autonomous simulation without player input.
         """
         world = WorldState()
@@ -156,7 +156,9 @@ class TestGameLoopIntegration:
         handler = ActionHandler(world=world)
 
         # Player mode: advance 3 steps
-        action = Action(action_type="move", target_position=Position(x=10, y=0, location_id="test"))
+        action = Action(
+            action_type="move", target_position=Position(x=10, y=0, location_id="test")
+        )
         for _ in range(3):
             handler.handle_action(action, "player")
             engine.step(action=action)
@@ -184,11 +186,11 @@ class TestGameLoopIntegration:
         pos1 = Position(x=0, y=0, location_id="arena")
         pos2 = Position(x=10, y=10, location_id="arena")
         pos3 = Position(x=5, y=5, location_id="arena")
-        
+
         hero = Entity(id="hero", position=pos1)
         npc1 = Entity(id="npc1", position=pos2)
         npc2 = Entity(id="npc2", position=pos3)
-        
+
         world.add_entity(hero)
         world.add_entity(npc1)
         world.add_entity(npc2)
@@ -197,11 +199,15 @@ class TestGameLoopIntegration:
         handler = ActionHandler(world=world)
 
         # Hero moves toward center
-        hero_action = Action(action_type="move", target_position=Position(x=5, y=5, location_id="arena"))
+        hero_action = Action(
+            action_type="move", target_position=Position(x=5, y=5, location_id="arena")
+        )
         handler.handle_action(hero_action, "hero")
 
         # NPC1 moves toward center
-        npc1_action = Action(action_type="move", target_position=Position(x=5, y=5, location_id="arena"))
+        npc1_action = Action(
+            action_type="move", target_position=Position(x=5, y=5, location_id="arena")
+        )
         handler.handle_action(npc1_action, "npc1")
 
         # NPC2 stays idle
@@ -230,7 +236,9 @@ class TestGameLoopIntegration:
         engine = GameEngine(world=world, mode=GameMode.PLAYER)
         handler = ActionHandler(world=world)
 
-        action = Action(action_type="move", target_position=Position(x=1, y=1, location_id="test"))
+        action = Action(
+            action_type="move", target_position=Position(x=1, y=1, location_id="test")
+        )
 
         with caplog.at_level(logging.DEBUG):
             handler.handle_action(action, "test_entity")
@@ -252,7 +260,10 @@ class TestGameLoopIntegration:
         handler = ActionHandler(world=world)
 
         # Player action: move
-        move_action = Action(action_type="move", target_position=Position(x=10, y=10, location_id="start"))
+        move_action = Action(
+            action_type="move",
+            target_position=Position(x=10, y=10, location_id="start"),
+        )
         handler.handle_action(move_action, "player_char")
         time1 = engine.step(action=move_action)
 
@@ -264,7 +275,7 @@ class TestGameLoopIntegration:
         enemy_pos = Position(x=7, y=7, location_id="start")
         enemy = Entity(id="enemy", position=enemy_pos)
         world.add_entity(enemy)
-        
+
         attack_action = Action(action_type="attack", target_entity_id="enemy")
         handler.handle_action(attack_action, "player_char")
         time2 = engine.step(action=attack_action)
@@ -274,7 +285,7 @@ class TestGameLoopIntegration:
     def test_acceptance_criteria_headless_mode(self):
         """Acceptance test: GameEngine can run in headless mode (advance ticks)."""
         world = WorldState()
-        
+
         # Create engine in headless mode
         engine = GameEngine(world=world, mode=GameMode.HEADLESS)
 
@@ -283,14 +294,14 @@ class TestGameLoopIntegration:
         assert initial_time == 0
 
         final_time = engine.run_headless(ticks=100)
-        
+
         assert final_time == 100
         assert world.time == 100
 
     def test_acceptance_criteria_action_handler_integration(self):
         """Acceptance test: ActionHandler integrates with WorldState for move and attack."""
         world = WorldState()
-        
+
         # Setup entities
         pos1 = Position(x=0, y=0, location_id="test")
         pos2 = Position(x=5, y=0, location_id="test")
@@ -302,16 +313,18 @@ class TestGameLoopIntegration:
         handler = ActionHandler(world=world)
 
         # Test move action
-        move_action = Action(action_type="move", target_position=Position(x=10, y=0, location_id="test"))
+        move_action = Action(
+            action_type="move", target_position=Position(x=10, y=0, location_id="test")
+        )
         result_move = handler.handle_action(move_action, "entity1")
-        
+
         assert result_move is True
         assert entity1.position.x == 1
 
         # Test attack action
         attack_action = Action(action_type="attack", target_entity_id="entity2")
         result_attack = handler.handle_action(attack_action, "entity1")
-        
+
         assert result_attack is True
 
     def test_acceptance_criteria_world_tick_advancement(self):
@@ -329,7 +342,9 @@ class TestGameLoopIntegration:
         assert entity.position.x == 0
 
         # Apply move action and step
-        move_action = Action(action_type="move", target_position=Position(x=5, y=5, location_id="world"))
+        move_action = Action(
+            action_type="move", target_position=Position(x=5, y=5, location_id="world")
+        )
         handler.handle_action(move_action, "test_entity")
         engine.step(action=move_action)
 

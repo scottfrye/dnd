@@ -246,7 +246,7 @@ class TestTimeSystemLogging:
     def test_initialization_logs_debug_message(self, caplog):
         """Test that initialization logs a debug message."""
         with caplog.at_level(logging.DEBUG):
-            time_system = TimeSystem(starting_tick=50)
+            TimeSystem(starting_tick=50)
 
         assert "TimeSystem initialized at tick 50" in caplog.text
 

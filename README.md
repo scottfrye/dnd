@@ -50,6 +50,9 @@ dnd/
 # Install development dependencies
 pip install -e ".[dev]"
 
+# Install pre-commit hooks
+pre-commit install
+
 # Run tests
 pytest
 ```
@@ -64,8 +67,35 @@ conda activate dnd
 # Install development dependencies
 pip install -e ".[dev]"
 
+# Install pre-commit hooks
+pre-commit install
+
 # Run tests
 pytest
+```
+
+### Code Quality
+
+This project uses pre-commit hooks to maintain code quality. The hooks include:
+- **Black**: Automatic code formatting
+- **Ruff**: Fast Python linter (replaces flake8, isort, and more)
+- **Standard checks**: Trailing whitespace, YAML validation, etc.
+
+After installing development dependencies, set up pre-commit hooks:
+
+```bash
+pre-commit install
+```
+
+The hooks will run automatically on `git commit`. You can also run them manually:
+
+```bash
+# Run on all files
+pre-commit run --all-files
+
+# Run specific hook
+pre-commit run black --all-files
+pre-commit run ruff --all-files
 ```
 
 ### Terminal UI Demo

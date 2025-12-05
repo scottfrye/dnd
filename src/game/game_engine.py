@@ -7,7 +7,6 @@ This module provides the GameEngine class that can run in two modes:
 
 import logging
 from enum import Enum
-from typing import Optional
 
 from src.simulation.npc_ai import Action
 from src.world.world_state import WorldState
@@ -36,7 +35,9 @@ class GameEngine:
         mode: The current game mode (PLAYER or HEADLESS).
     """
 
-    def __init__(self, world: Optional[WorldState] = None, mode: GameMode = GameMode.PLAYER) -> None:
+    def __init__(
+        self, world: WorldState | None = None, mode: GameMode = GameMode.PLAYER
+    ) -> None:
         """Initialize the game engine.
 
         Args:
@@ -48,7 +49,7 @@ class GameEngine:
         self._running = False
         logger.info("GameEngine initialized in %s mode", mode.value)
 
-    def step(self, action: Optional[Action] = None) -> int:
+    def step(self, action: Action | None = None) -> int:
         """Advance the game by one step.
 
         In PLAYER mode, this processes the given action (if any) and advances
@@ -69,11 +70,11 @@ class GameEngine:
                 logger.debug("Processing action: %s", action.action_type)
                 # Action processing would be handled by ActionHandler
                 # For now, we just log it
-        
+
         # Advance world time by one tick
         current_time = self.world.tick()
         logger.debug("Game step completed, world time: %d", current_time)
-        
+
         return current_time
 
     def run_headless(self, ticks: int) -> int:
@@ -93,16 +94,16 @@ class GameEngine:
         """
         if ticks < 0:
             raise ValueError("Number of ticks must be non-negative")
-        
+
         logger.info("Running headless simulation for %d ticks", ticks)
-        
+
         for i in range(ticks):
             self.world.tick()
             logger.debug("Headless tick %d/%d completed", i + 1, ticks)
-        
+
         final_time = self.world.time
         logger.info("Headless simulation completed, final time: %d", final_time)
-        
+
         return final_time
 
     def set_mode(self, mode: GameMode) -> None:

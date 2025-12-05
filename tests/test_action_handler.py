@@ -2,14 +2,13 @@
 
 These tests verify that the ActionHandler:
 - Handles move actions correctly
-- Handles attack actions correctly  
+- Handles attack actions correctly
 - Handles idle actions correctly
 - Integrates with WorldState
 - Validates action parameters
 """
 
 import logging
-import pytest
 
 from src.entities.entity import Entity, Position
 from src.game.action_handler import ActionHandler
@@ -297,7 +296,9 @@ class TestActionHandlerErrorHandling:
         """Test handling action for nonexistent entity returns False."""
         world = WorldState()
         handler = ActionHandler(world)
-        action = Action(action_type="move", target_position=Position(x=0, y=0, location_id="test"))
+        action = Action(
+            action_type="move", target_position=Position(x=0, y=0, location_id="test")
+        )
 
         result = handler.handle_action(action, "nonexistent")
 
@@ -380,8 +381,12 @@ class TestActionHandlerIntegration:
         world.add_entity(entity2)
 
         handler = ActionHandler(world)
-        action1 = Action(action_type="move", target_position=Position(x=5, y=5, location_id="test"))
-        action2 = Action(action_type="move", target_position=Position(x=5, y=5, location_id="test"))
+        action1 = Action(
+            action_type="move", target_position=Position(x=5, y=5, location_id="test")
+        )
+        action2 = Action(
+            action_type="move", target_position=Position(x=5, y=5, location_id="test")
+        )
 
         result1 = handler.handle_action(action1, "entity_1")
         result2 = handler.handle_action(action2, "entity_2")

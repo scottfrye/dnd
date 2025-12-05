@@ -8,6 +8,7 @@ These tests verify that the GameEngine:
 """
 
 import logging
+
 import pytest
 
 from src.entities.entity import Entity, Position

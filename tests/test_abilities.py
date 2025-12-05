@@ -265,10 +265,9 @@ class TestHighAbilityScores:
     def test_dexterity_above_25_uses_max(self):
         """Test that DEX above 25 uses the value for 25."""
         assert get_dexterity_ac_modifier(30) == get_dexterity_ac_modifier(25)
-        assert (
-            get_dexterity_initiative_modifier(30)
-            == get_dexterity_initiative_modifier(25)
-        )
+        assert get_dexterity_initiative_modifier(
+            30
+        ) == get_dexterity_initiative_modifier(25)
 
     def test_constitution_above_25_uses_max(self):
         """Test that CON above 25 uses the value for 25."""

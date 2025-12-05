@@ -5,12 +5,12 @@ allowing different UI backends (terminal, GUI, etc.) to be plugged in.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Any
 
 
 class Display(ABC):
     """Abstract base class for game display implementations.
-    
+
     This class defines the interface that all display implementations must follow,
     whether terminal-based, graphical, or other formats.
     """
@@ -18,7 +18,7 @@ class Display(ABC):
     @abstractmethod
     def initialize(self) -> None:
         """Initialize the display system.
-        
+
         This should set up any necessary resources, enter appropriate modes,
         and prepare the display for rendering.
         """
@@ -27,7 +27,7 @@ class Display(ABC):
     @abstractmethod
     def cleanup(self) -> None:
         """Clean up and release display resources.
-        
+
         This should restore the terminal/screen to its original state and
         release any resources held by the display.
         """
@@ -39,9 +39,11 @@ class Display(ABC):
         pass
 
     @abstractmethod
-    def render_map(self, map_data: list[list[str]], player_x: int, player_y: int) -> None:
+    def render_map(
+        self, map_data: list[list[str]], player_x: int, player_y: int
+    ) -> None:
         """Render the game map.
-        
+
         Args:
             map_data: 2D list of strings representing the map tiles
             player_x: Player's x coordinate
@@ -52,7 +54,7 @@ class Display(ABC):
     @abstractmethod
     def render_status(self, status_data: dict[str, Any]) -> None:
         """Render the status area showing character information.
-        
+
         Args:
             status_data: Dictionary containing character stats and status info
                 Expected keys might include: 'hp', 'max_hp', 'name', 'level', etc.
@@ -62,7 +64,7 @@ class Display(ABC):
     @abstractmethod
     def render_messages(self, messages: list[str]) -> None:
         """Render the message log.
-        
+
         Args:
             messages: List of recent message strings to display
         """
@@ -71,7 +73,7 @@ class Display(ABC):
     @abstractmethod
     def refresh(self) -> None:
         """Refresh the display to show all rendered content.
-        
+
         This commits any pending render operations to the screen.
         """
         pass
@@ -79,7 +81,7 @@ class Display(ABC):
     @abstractmethod
     def get_dimensions(self) -> tuple[int, int]:
         """Get the display dimensions.
-        
+
         Returns:
             Tuple of (width, height) in character cells
         """

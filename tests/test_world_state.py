@@ -8,6 +8,7 @@ These tests verify that the WorldState class correctly:
 """
 
 import logging
+
 import pytest
 
 from src.entities.entity import Entity, Position
@@ -50,7 +51,9 @@ class TestWorldStateEntityManagement:
 
         world.add_entity(entity1)
 
-        with pytest.raises(ValueError, match="Entity with id 'entity_1' already exists"):
+        with pytest.raises(
+            ValueError, match="Entity with id 'entity_1' already exists"
+        ):
             world.add_entity(entity2)
 
     def test_remove_entity(self):

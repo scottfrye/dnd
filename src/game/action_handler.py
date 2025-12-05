@@ -5,9 +5,8 @@ processing actions (move, attack, etc.) and integrating with WorldState.
 """
 
 import logging
-from typing import Optional
 
-from src.entities.entity import Entity, Position
+from src.entities.entity import Entity
 from src.simulation.npc_ai import Action
 from src.world.world_state import WorldState
 
@@ -78,7 +77,7 @@ class ActionHandler:
             return False
 
         target = action.target_position
-        
+
         # Calculate movement direction
         dx = 0
         dy = 0
@@ -97,7 +96,7 @@ class ActionHandler:
         old_x, old_y = entity.position.x, entity.position.y
         entity.position.x += dx
         entity.position.y += dy
-        
+
         logger.debug(
             "Entity '%s' moved from (%d, %d) to (%d, %d)",
             entity.id,
@@ -106,7 +105,7 @@ class ActionHandler:
             entity.position.x,
             entity.position.y,
         )
-        
+
         return True
 
     def _handle_attack(self, action: Action, entity: Entity) -> bool:
@@ -148,7 +147,7 @@ class ActionHandler:
             entity.id,
             target.id,
         )
-        
+
         # Actual combat resolution would be handled by the combat system
         # For now, we just log the attack and return success
         logger.debug("Combat resolution not yet implemented")

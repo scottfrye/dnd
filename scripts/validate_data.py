@@ -14,8 +14,8 @@ import sys
 from pathlib import Path
 
 # Ensure stdout uses UTF-8 encoding to handle unicode characters on all platforms
-if sys.stdout.encoding and sys.stdout.encoding.lower() not in ('utf-8', 'utf8'):
-    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if sys.stdout.encoding and sys.stdout.encoding.lower() not in ("utf-8", "utf8"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 try:
     from jsonschema import Draft7Validator
@@ -35,7 +35,7 @@ DATA_TYPE_SCHEMA_MAP = {
 
 def load_json_file(filepath: Path) -> dict:
     """Load and parse a JSON file."""
-    with open(filepath, "r", encoding="utf-8") as f:
+    with open(filepath, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -43,7 +43,7 @@ def validate_file(
     data_file: Path, schema: dict, validator: Draft7Validator, verbose: bool = False
 ) -> list[str]:
     """Validate a data file against a schema.
-    
+
     Returns a list of error messages (empty if valid).
     """
     errors = []
@@ -52,25 +52,27 @@ def validate_file(
     except json.JSONDecodeError as e:
         errors.append(f"  JSON parse error: {e}")
         return errors
-    
+
     for error in validator.iter_errors(data):
         path = ".".join(str(p) for p in error.path) if error.path else "(root)"
         errors.append(f"  [{path}] {error.message}")
-    
+
     if verbose and not errors:
         print(f"  ✓ {data_file.name}")
-    
+
     return errors
 
 
-def validate_data_directory(data_dir: Path, schemas_dir: Path, verbose: bool = False) -> tuple[int, int]:
+def validate_data_directory(
+    data_dir: Path, schemas_dir: Path, verbose: bool = False
+) -> tuple[int, int]:
     """Validate all data files in the data directory.
-    
+
     Returns a tuple of (total_errors, total_files).
     """
     total_errors = 0
     total_files = 0
-    
+
     # Load all schemas
     schemas = {}
     for data_type, schema_file in DATA_TYPE_SCHEMA_MAP.items():
@@ -83,7 +85,7 @@ def validate_data_directory(data_dir: Path, schemas_dir: Path, verbose: bool = F
         except json.JSONDecodeError as e:
             print(f"Error loading schema {schema_path}: {e}")
             return 1
-    
+
     # Validate each data type directory
     for data_type, schema in schemas.items():
         type_dir = data_dir / data_type
@@ -91,23 +93,23 @@ def validate_data_directory(data_dir: Path, schemas_dir: Path, verbose: bool = F
             if verbose:
                 print(f"Skipping {data_type}: directory not found")
             continue
-        
+
         validator = Draft7Validator(schema)
         json_files = list(type_dir.glob("*.json"))
-        
+
         if verbose:
             print(f"\nValidating {data_type} ({len(json_files)} files):")
-        
+
         for data_file in json_files:
             total_files += 1
             errors = validate_file(data_file, schema, validator, verbose)
-            
+
             if errors:
                 total_errors += len(errors)
                 print(f"\n✗ {data_file}:")
                 for error in errors:
                     print(error)
-    
+
     return total_errors, total_files
 
 
@@ -117,46 +119,44 @@ def main():
         description="Validate data files against JSON schemas"
     )
     parser.add_argument(
-        "-v", "--verbose",
-        action="store_true",
-        help="Show detailed validation progress"
+        "-v", "--verbose", action="store_true", help="Show detailed validation progress"
     )
     parser.add_argument(
         "--data-dir",
         type=Path,
         default=None,
-        help="Path to data directory (default: data/ relative to repo root)"
+        help="Path to data directory (default: data/ relative to repo root)",
     )
     args = parser.parse_args()
-    
+
     # Determine paths
     script_dir = Path(__file__).parent
     repo_root = script_dir.parent
-    
+
     if args.data_dir:
         data_dir = args.data_dir
     else:
         data_dir = repo_root / "data"
-    
+
     schemas_dir = data_dir / "schemas"
-    
+
     if not data_dir.exists():
         print(f"Error: Data directory not found: {data_dir}")
         sys.exit(1)
-    
+
     if not schemas_dir.exists():
         print(f"Error: Schemas directory not found: {schemas_dir}")
         sys.exit(1)
-    
+
     print(f"Validating data files in: {data_dir}")
     print(f"Using schemas from: {schemas_dir}")
-    
+
     result = validate_data_directory(data_dir, schemas_dir, args.verbose)
     total_errors, total_files = result
-    
+
     print(f"\n{'='*50}")
     print(f"Validation complete: {total_files} files checked")
-    
+
     if total_errors == 0:
         print("✓ All files valid!")
         sys.exit(0)

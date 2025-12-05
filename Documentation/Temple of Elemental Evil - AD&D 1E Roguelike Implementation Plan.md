@@ -6,7 +6,7 @@ The project is in early stages with basic scaffolding:
 * **Structure**: Basic src/, data/, tests/ directories
 * **Existing Code**: Minimal implementations of dice rolling, abilities, combat mechanics (surprise/initiative), and basic character/monster classes
 * **Data Files**: JSON data for NPCs, monsters, items, treasure, and locations (currently only 2 locations in Hommlet)
-* **Issues**: 
+* **Issues**:
     * Limited test coverage (only dice and combat stubs)
     * No game loop, state management, or terminal UI
     * No world simulation engine

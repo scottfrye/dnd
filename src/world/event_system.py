@@ -116,7 +116,9 @@ class EventSystem:
         results: list[tuple[str | None, Any]] = []
 
         for event in events_to_fire:
-            logger.info("Dispatching event '%s' at tick %d", event.event_id, current_tick)
+            logger.info(
+                "Dispatching event '%s' at tick %d", event.event_id, current_tick
+            )
             try:
                 result = event.callback(*event.args, **event.kwargs)
                 results.append((event.event_id, result))
