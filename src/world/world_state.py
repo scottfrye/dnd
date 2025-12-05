@@ -96,3 +96,32 @@ class WorldState:
         self._time += 1
         logger.info("World tick: time is now %d", self._time)
         return self._time
+
+    def to_dict(self) -> dict:
+        """Serialize the world state to a dictionary.
+
+        Returns:
+            A dictionary representation of the world state containing
+            the current time and all entities.
+        """
+        return {
+            "time": self._time,
+            "entities": [entity.to_dict() for entity in self._entities.values()],
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "WorldState":
+        """Deserialize a world state from a dictionary.
+
+        Args:
+            data: Dictionary representation of the world state.
+
+        Returns:
+            A new WorldState instance created from the dictionary data.
+        """
+        world = cls()
+        world._time = data.get("time", 0)
+        for entity_data in data.get("entities", []):
+            entity = Entity.from_dict(entity_data)
+            world.add_entity(entity)
+        return world
