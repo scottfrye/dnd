@@ -36,51 +36,51 @@ class TestTerminalInputHandler:
 
     def test_vi_keys_mapped_to_movement(self):
         """Test that vi-keys are mapped to movement actions."""
-        assert TerminalInputHandler.KEY_MAPPINGS["h"] == InputAction.MOVE_WEST
-        assert TerminalInputHandler.KEY_MAPPINGS["j"] == InputAction.MOVE_SOUTH
-        assert TerminalInputHandler.KEY_MAPPINGS["k"] == InputAction.MOVE_NORTH
-        assert TerminalInputHandler.KEY_MAPPINGS["l"] == InputAction.MOVE_EAST
-        assert TerminalInputHandler.KEY_MAPPINGS["y"] == InputAction.MOVE_NORTHWEST
-        assert TerminalInputHandler.KEY_MAPPINGS["u"] == InputAction.MOVE_NORTHEAST
-        assert TerminalInputHandler.KEY_MAPPINGS["b"] == InputAction.MOVE_SOUTHWEST
-        assert TerminalInputHandler.KEY_MAPPINGS["n"] == InputAction.MOVE_SOUTHEAST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["h"] == InputAction.MOVE_WEST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["j"] == InputAction.MOVE_SOUTH
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["k"] == InputAction.MOVE_NORTH
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["l"] == InputAction.MOVE_EAST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["y"] == InputAction.MOVE_NORTHWEST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["u"] == InputAction.MOVE_NORTHEAST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["b"] == InputAction.MOVE_SOUTHWEST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["n"] == InputAction.MOVE_SOUTHEAST
 
     def test_arrow_keys_mapped_to_movement(self):
         """Test that arrow keys are mapped to movement actions."""
-        assert TerminalInputHandler.KEY_MAPPINGS["KEY_LEFT"] == InputAction.MOVE_WEST
-        assert TerminalInputHandler.KEY_MAPPINGS["KEY_RIGHT"] == InputAction.MOVE_EAST
-        assert TerminalInputHandler.KEY_MAPPINGS["KEY_UP"] == InputAction.MOVE_NORTH
-        assert TerminalInputHandler.KEY_MAPPINGS["KEY_DOWN"] == InputAction.MOVE_SOUTH
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_LEFT"] == InputAction.MOVE_WEST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_RIGHT"] == InputAction.MOVE_EAST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_UP"] == InputAction.MOVE_NORTH
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_DOWN"] == InputAction.MOVE_SOUTH
 
     def test_numpad_keys_mapped_to_movement(self):
         """Test that numpad keys are mapped to movement actions."""
-        assert TerminalInputHandler.KEY_MAPPINGS["4"] == InputAction.MOVE_WEST
-        assert TerminalInputHandler.KEY_MAPPINGS["6"] == InputAction.MOVE_EAST
-        assert TerminalInputHandler.KEY_MAPPINGS["8"] == InputAction.MOVE_NORTH
-        assert TerminalInputHandler.KEY_MAPPINGS["2"] == InputAction.MOVE_SOUTH
-        assert TerminalInputHandler.KEY_MAPPINGS["7"] == InputAction.MOVE_NORTHWEST
-        assert TerminalInputHandler.KEY_MAPPINGS["9"] == InputAction.MOVE_NORTHEAST
-        assert TerminalInputHandler.KEY_MAPPINGS["1"] == InputAction.MOVE_SOUTHWEST
-        assert TerminalInputHandler.KEY_MAPPINGS["3"] == InputAction.MOVE_SOUTHEAST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["4"] == InputAction.MOVE_WEST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["6"] == InputAction.MOVE_EAST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["8"] == InputAction.MOVE_NORTH
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["2"] == InputAction.MOVE_SOUTH
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["7"] == InputAction.MOVE_NORTHWEST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["9"] == InputAction.MOVE_NORTHEAST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["1"] == InputAction.MOVE_SOUTHWEST
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["3"] == InputAction.MOVE_SOUTHEAST
 
     def test_game_action_keys_mapped(self):
         """Test that game action keys are mapped correctly."""
-        assert TerminalInputHandler.KEY_MAPPINGS["."] == InputAction.WAIT
-        assert TerminalInputHandler.KEY_MAPPINGS["5"] == InputAction.WAIT
-        assert TerminalInputHandler.KEY_MAPPINGS[","] == InputAction.PICKUP
-        assert TerminalInputHandler.KEY_MAPPINGS["g"] == InputAction.PICKUP
-        assert TerminalInputHandler.KEY_MAPPINGS["i"] == InputAction.INVENTORY
-        assert TerminalInputHandler.KEY_MAPPINGS["a"] == InputAction.USE
-        assert TerminalInputHandler.KEY_MAPPINGS["d"] == InputAction.DROP
-        assert TerminalInputHandler.KEY_MAPPINGS["c"] == InputAction.CAST_SPELL
-        assert TerminalInputHandler.KEY_MAPPINGS[";"] == InputAction.LOOK
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["."] == InputAction.WAIT
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["5"] == InputAction.WAIT
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS[","] == InputAction.PICKUP
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["g"] == InputAction.PICKUP
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["i"] == InputAction.INVENTORY
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["a"] == InputAction.USE
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["d"] == InputAction.DROP
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["c"] == InputAction.CAST_SPELL
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS[";"] == InputAction.LOOK
 
     def test_ui_action_keys_mapped(self):
         """Test that UI action keys are mapped correctly."""
-        assert TerminalInputHandler.KEY_MAPPINGS["?"] == InputAction.HELP
-        assert TerminalInputHandler.KEY_MAPPINGS["q"] == InputAction.QUIT
-        assert TerminalInputHandler.KEY_MAPPINGS["Q"] == InputAction.QUIT
-        assert TerminalInputHandler.KEY_MAPPINGS["S"] == InputAction.SAVE
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["?"] == InputAction.HELP
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["q"] == InputAction.QUIT
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["Q"] == InputAction.QUIT
+        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["S"] == InputAction.SAVE
 
     def test_get_input_returns_mapped_action(self):
         """Test that get_input returns the correct InputAction for a key."""
@@ -192,3 +192,24 @@ class TestTerminalInputHandler:
             assert handler._initialized
 
         assert not handler._initialized
+
+    def test_instance_level_key_mappings_do_not_affect_other_instances(self):
+        """Test that modifying key mappings in one instance doesn't affect others."""
+        mock_term1 = MagicMock()
+        mock_term2 = MagicMock()
+
+        handler1 = TerminalInputHandler(terminal=mock_term1)
+        handler2 = TerminalInputHandler(terminal=mock_term2)
+
+        # Add a custom mapping to handler1
+        handler1.add_key_mapping("z", InputAction.SAVE)
+
+        # Verify handler1 has the mapping
+        assert handler1.get_key_mapping("z") == InputAction.SAVE
+
+        # Verify handler2 doesn't have the mapping
+        assert handler2.get_key_mapping("z") is None
+
+        # Verify both handlers still have the default mappings
+        assert handler1.get_key_mapping("k") == InputAction.MOVE_NORTH
+        assert handler2.get_key_mapping("k") == InputAction.MOVE_NORTH

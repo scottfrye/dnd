@@ -18,9 +18,9 @@ class TerminalInputHandler(InputHandler):
     supporting multiple key mapping schemes (vi-keys, arrow keys, numpad).
     """
 
-    # Key mappings for different input schemes
+    # Default key mappings for different input schemes
     # Vi-keys and arrow keys for movement
-    KEY_MAPPINGS = {
+    DEFAULT_KEY_MAPPINGS = {
         # Vi-keys (classic roguelike)
         'h': InputAction.MOVE_WEST,
         'j': InputAction.MOVE_SOUTH,
@@ -74,6 +74,8 @@ class TerminalInputHandler(InputHandler):
         """
         self.term = terminal or Terminal()
         self._initialized = False
+        # Create instance-level copy of key mappings to avoid cross-instance pollution
+        self.key_mappings = self.DEFAULT_KEY_MAPPINGS.copy()
 
     def initialize(self) -> None:
         """Initialize the input handler."""
@@ -102,7 +104,7 @@ class TerminalInputHandler(InputHandler):
             return None
         
         # Look up the key in the mapping
-        action = self.KEY_MAPPINGS.get(key, InputAction.UNKNOWN)
+        action = self.key_mappings.get(key, InputAction.UNKNOWN)
         return action
 
     def get_key(self, timeout: Optional[float] = None) -> Optional[str]:
@@ -133,7 +135,7 @@ class TerminalInputHandler(InputHandler):
             key: The key string to map
             action: The InputAction to associate with the key
         """
-        self.KEY_MAPPINGS[key] = action
+        self.key_mappings[key] = action
 
     def remove_key_mapping(self, key: str) -> None:
         """Remove a key mapping.
@@ -141,8 +143,8 @@ class TerminalInputHandler(InputHandler):
         Args:
             key: The key string to remove from mappings
         """
-        if key in self.KEY_MAPPINGS:
-            del self.KEY_MAPPINGS[key]
+        if key in self.key_mappings:
+            del self.key_mappings[key]
 
     def get_key_mapping(self, key: str) -> Optional[InputAction]:
         """Get the action mapped to a key.
@@ -153,4 +155,4 @@ class TerminalInputHandler(InputHandler):
         Returns:
             The InputAction mapped to the key, or None if not mapped
         """
-        return self.KEY_MAPPINGS.get(key)
+        return self.key_mappings.get(key)

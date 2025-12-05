@@ -4,6 +4,7 @@ This module provides a terminal-based implementation of the Display interface
 using the blessed library for terminal manipulation.
 """
 
+import sys
 from typing import Any, Optional
 
 from blessed import Terminal
@@ -127,7 +128,6 @@ class TerminalDisplay(Display):
         
         blessed writes directly, so we just need to flush stdout.
         """
-        import sys
         sys.stdout.flush()
 
     def get_dimensions(self) -> tuple[int, int]:
