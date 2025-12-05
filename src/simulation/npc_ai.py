@@ -26,7 +26,7 @@ class Action:
     action_type: str
     target_position: Optional[Position] = None
     target_entity_id: Optional[str] = None
-    data: dict = None
+    data: Optional[dict] = None
 
     def __post_init__(self):
         """Initialize default values."""
@@ -115,7 +115,7 @@ def attack_on_sight_behavior(npc: Entity, world: WorldState) -> Action:
     closest_target = None
     closest_distance = float("inf")
 
-    for entity_id in world._entities:
+    for entity_id in world.get_all_entity_ids():
         if entity_id == npc.id:
             continue  # Skip self
 
