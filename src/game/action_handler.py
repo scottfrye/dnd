@@ -144,13 +144,14 @@ class ActionHandler:
             return False
 
         logger.info(
-            "Entity '%s' attacks '%s' (combat resolution not yet implemented)",
+            "Entity '%s' attacks '%s'",
             entity.id,
             target.id,
         )
         
-        # Actual combat would be handled by the combat system
-        # For now, we just log the attack
+        # Actual combat resolution would be handled by the combat system
+        # For now, we just log the attack and return success
+        logger.debug("Combat resolution not yet implemented")
         return True
 
     def _handle_idle(self, action: Action, entity: Entity) -> bool:
