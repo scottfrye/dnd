@@ -15,10 +15,8 @@ This module provides:
 """
 
 from dataclasses import dataclass
-from typing import Optional, Tuple
 
 from src.utils.dice import DiceRoller
-
 
 # Base THAC0 values by level for different class groups (AD&D 1E PHB)
 # Fighter group (Fighter, Paladin, Ranger): improves every level
@@ -136,8 +134,6 @@ class CombatStats:
     damage_modifier: int = 0
 
 
-
-
 @dataclass
 class AttackResult:
     """Result of an attack resolution.
@@ -159,9 +155,7 @@ class AttackResult:
     critical_miss: bool = False
 
 
-def get_thac0(
-    level: int, class_group: str = "fighter"
-) -> int:
+def get_thac0(level: int, class_group: str = "fighter") -> int:
     """Get the THAC0 value for a given level and class group.
 
     Args:
@@ -224,8 +218,8 @@ def calculate_target_number(thac0: int, target_ac: int) -> int:
 def resolve_attack(
     attacker: CombatStats,
     defender: CombatStats,
-    roll: Optional[int] = None,
-    roller: Optional[DiceRoller] = None,
+    roll: int | None = None,
+    roller: DiceRoller | None = None,
 ) -> AttackResult:
     """Resolve an attack between an attacker and defender.
 
@@ -285,9 +279,9 @@ def resolve_attack_simple(
     attacker_thac0: int,
     defender_ac: int,
     hit_modifier: int = 0,
-    roll: Optional[int] = None,
-    roller: Optional[DiceRoller] = None,
-) -> Tuple[bool, int]:
+    roll: int | None = None,
+    roller: DiceRoller | None = None,
+) -> tuple[bool, int]:
     """Simplified attack resolution with basic parameters.
 
     A convenience function for quick attack resolution without

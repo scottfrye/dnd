@@ -8,7 +8,6 @@ Modifiers are based on AD&D 1E rules from the Player's Handbook.
 """
 
 from dataclasses import dataclass
-from typing import Tuple
 
 
 @dataclass
@@ -46,14 +45,12 @@ class AbilityScores:
         ]:
             value = getattr(self, attr_name)
             if not isinstance(value, int) or value < 1:
-                raise ValueError(
-                    f"{attr_name} must be a positive integer, got {value}"
-                )
+                raise ValueError(f"{attr_name} must be a positive integer, got {value}")
 
 
 # AD&D 1E Strength modifiers (to-hit and damage)
 # Based on Player's Handbook Table I
-_STRENGTH_MODIFIERS: dict[int, Tuple[int, int]] = {
+_STRENGTH_MODIFIERS: dict[int, tuple[int, int]] = {
     1: (-5, -4),
     2: (-3, -2),
     3: (-3, -1),
@@ -86,7 +83,7 @@ _STRENGTH_MODIFIERS: dict[int, Tuple[int, int]] = {
 
 # AD&D 1E Dexterity modifiers (reaction/initiative and defensive/AC)
 # Based on Player's Handbook Table II
-_DEXTERITY_MODIFIERS: dict[int, Tuple[int, int]] = {
+_DEXTERITY_MODIFIERS: dict[int, tuple[int, int]] = {
     1: (-6, +5),  # (reaction adj, AC adj) - positive AC adj is worse in AD&D
     2: (-4, +5),
     3: (-3, +4),
@@ -190,7 +187,7 @@ def get_strength_damage_modifier(strength: int) -> int:
     raise ValueError(f"Invalid strength score: {strength}")
 
 
-def get_strength_modifiers(strength: int) -> Tuple[int, int]:
+def get_strength_modifiers(strength: int) -> tuple[int, int]:
     """Get both hit and damage modifiers based on Strength score.
 
     Args:
@@ -252,7 +249,7 @@ def get_dexterity_initiative_modifier(dexterity: int) -> int:
     raise ValueError(f"Invalid dexterity score: {dexterity}")
 
 
-def get_dexterity_modifiers(dexterity: int) -> Tuple[int, int]:
+def get_dexterity_modifiers(dexterity: int) -> tuple[int, int]:
     """Get both initiative and AC modifiers based on Dexterity score.
 
     Args:

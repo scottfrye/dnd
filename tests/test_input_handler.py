@@ -6,8 +6,6 @@ InputHandler interface using the blessed library.
 
 from unittest.mock import MagicMock, Mock, patch
 
-import pytest
-
 from src.ui.input import InputAction, InputHandler
 from src.ui.input_handler import TerminalInputHandler
 
@@ -40,17 +38,37 @@ class TestTerminalInputHandler:
         assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["j"] == InputAction.MOVE_SOUTH
         assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["k"] == InputAction.MOVE_NORTH
         assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["l"] == InputAction.MOVE_EAST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["y"] == InputAction.MOVE_NORTHWEST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["u"] == InputAction.MOVE_NORTHEAST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["b"] == InputAction.MOVE_SOUTHWEST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["n"] == InputAction.MOVE_SOUTHEAST
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["y"] == InputAction.MOVE_NORTHWEST
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["u"] == InputAction.MOVE_NORTHEAST
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["b"] == InputAction.MOVE_SOUTHWEST
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["n"] == InputAction.MOVE_SOUTHEAST
+        )
 
     def test_arrow_keys_mapped_to_movement(self):
         """Test that arrow keys are mapped to movement actions."""
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_LEFT"] == InputAction.MOVE_WEST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_RIGHT"] == InputAction.MOVE_EAST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_UP"] == InputAction.MOVE_NORTH
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_DOWN"] == InputAction.MOVE_SOUTH
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_LEFT"]
+            == InputAction.MOVE_WEST
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_RIGHT"]
+            == InputAction.MOVE_EAST
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_UP"]
+            == InputAction.MOVE_NORTH
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["KEY_DOWN"]
+            == InputAction.MOVE_SOUTH
+        )
 
     def test_numpad_keys_mapped_to_movement(self):
         """Test that numpad keys are mapped to movement actions."""
@@ -58,10 +76,18 @@ class TestTerminalInputHandler:
         assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["6"] == InputAction.MOVE_EAST
         assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["8"] == InputAction.MOVE_NORTH
         assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["2"] == InputAction.MOVE_SOUTH
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["7"] == InputAction.MOVE_NORTHWEST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["9"] == InputAction.MOVE_NORTHEAST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["1"] == InputAction.MOVE_SOUTHWEST
-        assert TerminalInputHandler.DEFAULT_KEY_MAPPINGS["3"] == InputAction.MOVE_SOUTHEAST
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["7"] == InputAction.MOVE_NORTHWEST
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["9"] == InputAction.MOVE_NORTHEAST
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["1"] == InputAction.MOVE_SOUTHWEST
+        )
+        assert (
+            TerminalInputHandler.DEFAULT_KEY_MAPPINGS["3"] == InputAction.MOVE_SOUTHEAST
+        )
 
     def test_game_action_keys_mapped(self):
         """Test that game action keys are mapped correctly."""

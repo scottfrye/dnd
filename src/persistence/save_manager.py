@@ -7,7 +7,6 @@ objects to and from YAML and JSON formats.
 import json
 import logging
 from pathlib import Path
-from typing import Union
 
 import yaml
 
@@ -16,7 +15,7 @@ from src.world.world_state import WorldState
 logger = logging.getLogger(__name__)
 
 
-def save(world_state: WorldState, path: Union[str, Path], format: str = "yaml") -> None:
+def save(world_state: WorldState, path: str | Path, format: str = "yaml") -> None:
     """Save a WorldState to a file.
 
     Args:
@@ -47,7 +46,7 @@ def save(world_state: WorldState, path: Union[str, Path], format: str = "yaml") 
         raise
 
 
-def load(path: Union[str, Path]) -> WorldState:
+def load(path: str | Path) -> WorldState:
     """Load a WorldState from a file.
 
     The format (YAML or JSON) is automatically detected based on file extension.
@@ -72,21 +71,21 @@ def load(path: Union[str, Path]) -> WorldState:
         # Detect format by extension
         ext = path.suffix.lower()
         if ext in [".yaml", ".yml"]:
-            with open(path, "r") as f:
+            with open(path) as f:
                 data = yaml.safe_load(f)
             logger.info("Loaded WorldState from %s (YAML format)", path)
         elif ext == ".json":
-            with open(path, "r") as f:
+            with open(path) as f:
                 data = json.load(f)
             logger.info("Loaded WorldState from %s (JSON format)", path)
         else:
             # Try YAML first, then JSON if that fails
             try:
-                with open(path, "r") as f:
+                with open(path) as f:
                     data = yaml.safe_load(f)
                 logger.info("Loaded WorldState from %s (auto-detected YAML)", path)
             except yaml.YAMLError:
-                with open(path, "r") as f:
+                with open(path) as f:
                     data = json.load(f)
                 logger.info("Loaded WorldState from %s (auto-detected JSON)", path)
 

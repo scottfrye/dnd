@@ -6,7 +6,6 @@ actions that can be applied to the world.
 """
 
 from dataclasses import dataclass
-from typing import Optional
 
 from src.entities.entity import Entity, Position
 from src.world.world_state import WorldState
@@ -24,9 +23,9 @@ class Action:
     """
 
     action_type: str
-    target_position: Optional[Position] = None
-    target_entity_id: Optional[str] = None
-    data: Optional[dict] = None
+    target_position: Position | None = None
+    target_entity_id: str | None = None
+    data: dict | None = None
 
     def __post_init__(self):
         """Initialize default values."""

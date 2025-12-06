@@ -5,7 +5,6 @@ for game entities and manages the game's time system.
 """
 
 import logging
-from typing import Optional
 
 from src.entities.entity import Entity
 
@@ -66,7 +65,7 @@ class WorldState:
             return True
         return False
 
-    def get_entity(self, entity_id: str) -> Optional[Entity]:
+    def get_entity(self, entity_id: str) -> Entity | None:
         """Get an entity by its id.
 
         Args:

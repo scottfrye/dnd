@@ -15,10 +15,10 @@ from src.logging_config import setup_logging
 
 def _cleanup_handlers(logger: logging.Logger) -> None:
     """Close and remove all handlers from a logger.
-    
+
     This is necessary on Windows where file handlers keep files open,
     preventing temporary directory cleanup.
-    
+
     Args:
         logger: The logger whose handlers should be cleaned up.
     """
@@ -52,7 +52,7 @@ def test_setup_logging_creates_log_file_in_temp_directory():
         assert os.path.exists(log_file)
 
         # Verify the log file contains the message
-        with open(log_file, "r", encoding="utf-8") as f:
+        with open(log_file, encoding="utf-8") as f:
             content = f.read()
             assert "Test log message" in content
 

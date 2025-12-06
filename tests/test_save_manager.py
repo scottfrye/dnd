@@ -198,7 +198,7 @@ class TestSaveManagerYAML:
             save_manager.save(world, temp_path, format="yaml")
 
             assert temp_path.exists()
-            with open(temp_path, "r") as f:
+            with open(temp_path) as f:
                 data = yaml.safe_load(f)
 
             assert data["time"] == 1
@@ -209,9 +209,7 @@ class TestSaveManagerYAML:
 
     def test_load_yaml_basic(self):
         """Test loading a WorldState from YAML."""
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".yaml", delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
             temp_path = Path(f.name)
             yaml.safe_dump(
                 {
@@ -276,7 +274,9 @@ class TestSaveManagerYAML:
                 assert rest_entity.id == orig_entity.id
                 assert rest_entity.position.x == orig_entity.position.x
                 assert rest_entity.position.y == orig_entity.position.y
-                assert rest_entity.position.location_id == orig_entity.position.location_id
+                assert (
+                    rest_entity.position.location_id == orig_entity.position.location_id
+                )
                 assert rest_entity.properties == orig_entity.properties
         finally:
             temp_path.unlink(missing_ok=True)
@@ -301,7 +301,7 @@ class TestSaveManagerJSON:
             save_manager.save(world, temp_path, format="json")
 
             assert temp_path.exists()
-            with open(temp_path, "r") as f:
+            with open(temp_path) as f:
                 data = json.load(f)
 
             assert data["time"] == 2
@@ -312,9 +312,7 @@ class TestSaveManagerJSON:
 
     def test_load_json_basic(self):
         """Test loading a WorldState from JSON."""
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".json", delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             temp_path = Path(f.name)
             json.dump(
                 {
@@ -375,7 +373,9 @@ class TestSaveManagerJSON:
                 assert rest_entity.id == orig_entity.id
                 assert rest_entity.position.x == orig_entity.position.x
                 assert rest_entity.position.y == orig_entity.position.y
-                assert rest_entity.position.location_id == orig_entity.position.location_id
+                assert (
+                    rest_entity.position.location_id == orig_entity.position.location_id
+                )
                 assert rest_entity.properties == orig_entity.properties
         finally:
             temp_path.unlink(missing_ok=True)
@@ -405,9 +405,7 @@ class TestSaveManagerErrors:
 
     def test_load_auto_detects_yaml_by_extension(self):
         """Test that .yaml extension is auto-detected."""
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".yaml", delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
             temp_path = Path(f.name)
             yaml.safe_dump({"time": 7, "entities": []}, f)
 
@@ -419,9 +417,7 @@ class TestSaveManagerErrors:
 
     def test_load_auto_detects_json_by_extension(self):
         """Test that .json extension is auto-detected."""
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".json", delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
             temp_path = Path(f.name)
             json.dump({"time": 9, "entities": []}, f)
 
@@ -451,7 +447,7 @@ class TestAcceptanceCriteria:
 
             # Verify file exists and contains YAML
             assert temp_path.exists()
-            with open(temp_path, "r") as f:
+            with open(temp_path) as f:
                 content = f.read()
                 assert "time:" in content or "time :" in content
                 assert "entities:" in content or "entities :" in content
@@ -461,9 +457,7 @@ class TestAcceptanceCriteria:
     def test_load_restores_basic_world_state(self):
         """Acceptance: save_manager.load(path) restores basic WorldState objects (entity list, time)."""
         # Create a YAML file with known data
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".yaml", delete=False
-        ) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
             temp_path = Path(f.name)
             yaml.safe_dump(
                 {
@@ -506,9 +500,7 @@ class TestAcceptanceCriteria:
         # Add specific number of entities
         for i in range(4):
             pos = Position(x=i * 10, y=i * 20, location_id=f"loc_{i}")
-            entity = Entity(
-                id=f"entity_{i}", position=pos, properties={"index": i}
-            )
+            entity = Entity(id=f"entity_{i}", position=pos, properties={"index": i})
             original.add_entity(entity)
 
         original_time = original.time
