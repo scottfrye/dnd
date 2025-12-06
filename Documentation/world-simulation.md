@@ -245,7 +245,7 @@ Conflict Event → FactionManager.resolve_conflict() → Battle outcome → Worl
 Based on the adventure module, key factions include:
 
 1. **Fire Temple** (Cult of the Salamander)
-   - Leader: Alrrem (8th level cleric)
+   - Leader: Alrem (8th level cleric)
    - Goal: Dominate through force and destruction
    - Hostile to: Water, Air, Earth temples
    
@@ -568,6 +568,7 @@ The architecture supports autonomous world simulation without player input:
 ```python
 from src.game.game_engine import GameEngine, GameMode
 
+# GameMode enum values: PLAYER, HEADLESS
 engine = GameEngine(mode=GameMode.HEADLESS)
 final_state = engine.run_headless(86400)  # Simulate 1 day
 ```
