@@ -1,0 +1,11 @@
+{
+  "id": "hommlet_storage_room",
+  "name": "Trading Post Storage",
+  "description": "A locked storage room at the back of the trading post, containing valuable merchandise.",
+  "exits": [
+    {
+      "direction": "west",
+      "target": "hommlet_trading_post"
+    }
+  ]
+}

@@ -10,7 +10,6 @@ from typing import Any
 
 import yaml
 
-
 # Default configuration values
 DEFAULT_CONFIG = {
     "logging": {
@@ -39,7 +38,7 @@ def load_config(path: str = "config.yaml") -> dict[str, Any]:
         return copy.deepcopy(DEFAULT_CONFIG)
 
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             config = yaml.safe_load(f)
             if config is None:
                 return copy.deepcopy(DEFAULT_CONFIG)

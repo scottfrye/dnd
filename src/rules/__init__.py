@@ -14,8 +14,17 @@ from src.rules.abilities import (
     get_strength_hit_modifier,
     get_strength_modifiers,
 )
+from src.rules.combat_system import (
+    AttackResult,
+    CombatStats,
+    calculate_target_number,
+    get_thac0,
+    resolve_attack,
+    resolve_attack_simple,
+)
 
 __all__ = [
+    # Abilities
     "AbilityScores",
     "get_strength_hit_modifier",
     "get_strength_damage_modifier",
@@ -24,4 +33,11 @@ __all__ = [
     "get_dexterity_initiative_modifier",
     "get_dexterity_modifiers",
     "get_constitution_hp_modifier",
+    # Combat System
+    "CombatStats",
+    "AttackResult",
+    "get_thac0",
+    "calculate_target_number",
+    "resolve_attack",
+    "resolve_attack_simple",
 ]

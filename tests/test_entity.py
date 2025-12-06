@@ -6,8 +6,6 @@ These tests verify that the Entity base class correctly:
 - Serializes to a dictionary via to_dict()
 """
 
-import pytest
-
 from src.entities.entity import Entity, Position
 
 
