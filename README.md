@@ -156,6 +156,65 @@ This will launch a simple interactive terminal display showing:
 The demo showcases the abstracted Display and InputHandler interfaces that allow
 for different UI backends to be implemented in the future (GUI, web, etc.).
 
+## UI Architecture
+
+The game features a fully abstracted UI system that separates display and input handling from core game logic. This architecture enables:
+
+- **Terminal Interface**: ASCII-based display using the `blessed` library (currently implemented)
+- **Future GUI Support**: Pluggable architecture allows for graphical front-ends
+- **Consistent Interface**: All UI implementations follow the same abstract base classes
+
+### Abstract APIs
+
+The UI system is built on two core abstractions:
+
+1. **Display API** (`src/ui/display.py`): Handles rendering of game state
+   - `render_map()`: Display game world and player position
+   - `render_status()`: Show character statistics
+   - `render_messages()`: Display event log
+   - `refresh()`: Update screen with rendered content
+
+2. **InputHandler API** (`src/ui/input.py`): Manages user input
+   - `get_input()`: Returns high-level game actions (`InputAction` enum)
+   - `get_key()`: Returns raw key presses for prompts
+   - Supports multiple input schemes (vi-keys, arrow keys, numpad)
+
+### Terminal Implementation
+
+The current terminal implementation (`src/ui/terminal_display.py` and `src/ui/input_handler.py`) provides:
+
+- ASCII map rendering with color support
+- Flexible layout (configurable map, status, and message areas)
+- Multiple key binding schemes
+- Cross-platform terminal support via `blessed`
+
+### Documentation
+
+For detailed information about the UI architecture, including:
+- API specifications and usage examples
+- How to implement new UI backends
+- Integration with the game engine
+- Testing strategies
+
+See: [Documentation/ui-architecture.md](Documentation/ui-architecture.md)
+
+### Testing
+
+The UI system has comprehensive test coverage:
+
+- **Unit Tests**: `tests/test_display.py`, `tests/test_input.py`, `tests/test_terminal_display.py`, `tests/test_input_handler.py`
+- **Integration Tests**: `tests/test_ui_integration.py` - Tests complete render/input cycles
+- **Manual Testing**: `scripts/terminal_ui_demo.py` - Interactive demonstration
+
+Run UI tests:
+```bash
+# Run all UI tests
+pytest tests/test_*display*.py tests/test_*input*.py tests/test_ui_integration.py
+
+# Run just integration tests
+pytest tests/test_ui_integration.py -v
+```
+
 ### Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
