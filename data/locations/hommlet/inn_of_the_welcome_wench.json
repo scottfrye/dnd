@@ -1,0 +1,22 @@
+{
+  "id": "hommlet_inn_welcome_wench",
+  "name": "Inn of the Welcome Wench",
+  "description": "A bustling two-story inn with a common room filled with the aroma of roasted meat and fresh bread. The innkeeper, Ostler Gundigoot, tends bar while his wife Glora manages the rooms upstairs. Locals and travelers mingle at wooden tables, sharing news and ale.",
+  "dimensions": {
+    "width": 50,
+    "height": 40
+  },
+  "exits": [
+    {
+      "direction": "north",
+      "target": "hommlet_main_street"
+    },
+    {
+      "direction": "up",
+      "target": "hommlet_inn_upper_floor"
+    }
+  ],
+  "monsters": [],
+  "items": [],
+  "light_level": "bright"
+}

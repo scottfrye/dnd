@@ -1,0 +1,15 @@
+{
+  "id": "hommlet_main_street",
+  "name": "Hommlet Main Street",
+  "description": "The main thoroughfare of Hommlet, a dirt road lined with cottages and shops. Villagers go about their daily business.",
+  "exits": [
+    {
+      "direction": "south",
+      "target": "hommlet_inn_welcome_wench"
+    },
+    {
+      "direction": "north",
+      "target": "hommlet_trading_post"
+    }
+  ]
+}

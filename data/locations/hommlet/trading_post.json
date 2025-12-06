@@ -1,0 +1,27 @@
+{
+  "id": "hommlet_trading_post",
+  "name": "Hommlet Trading Post",
+  "description": "A well-stocked trading post run by the traders Rannos Davl and Gremag. Shelves are lined with goods from distant lands - rope, tools, provisions, and various adventuring supplies. The smell of leather and oil fills the air.",
+  "dimensions": {
+    "width": 35,
+    "height": 30
+  },
+  "exits": [
+    {
+      "direction": "south",
+      "target": "hommlet_main_street"
+    },
+    {
+      "direction": "east",
+      "target": "hommlet_storage_room",
+      "locked": true,
+      "key_id": "trading_post_key"
+    }
+  ],
+  "monsters": [],
+  "items": [
+    "rope_50ft",
+    "torch_bundle"
+  ],
+  "light_level": "bright"
+}
