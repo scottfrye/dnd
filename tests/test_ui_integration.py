@@ -6,8 +6,6 @@ work together correctly in typical game scenarios.
 
 from unittest.mock import MagicMock, Mock, patch
 
-import pytest
-
 from src.ui.display import Display
 from src.ui.input import InputAction, InputHandler
 from src.ui.input_handler import TerminalInputHandler
@@ -19,8 +17,9 @@ class TestUIIntegration:
 
     def test_terminal_display_and_input_handler_initialization(self):
         """Test that TerminalDisplay and TerminalInputHandler can be initialized together."""
-        with patch("src.ui.terminal_display.Terminal"), patch(
-            "src.ui.input_handler.Terminal"
+        with (
+            patch("src.ui.terminal_display.Terminal"),
+            patch("src.ui.input_handler.Terminal"),
         ):
             display = TerminalDisplay()
             input_handler = TerminalInputHandler()
@@ -38,11 +37,10 @@ class TestUIIntegration:
         mock_term_input = MagicMock()
 
         with patch("builtins.print"):
-            with TerminalDisplay(
-                terminal=mock_term_display
-            ) as display, TerminalInputHandler(
-                terminal=mock_term_input
-            ) as input_handler:
+            with (
+                TerminalDisplay(terminal=mock_term_display) as display,
+                TerminalInputHandler(terminal=mock_term_input) as input_handler,
+            ):
                 assert display._initialized
                 assert input_handler._initialized
 
@@ -185,9 +183,7 @@ class TestUIIntegration:
                 mock_key.__str__ = Mock(return_value=".")
                 mock_key.__bool__ = Mock(return_value=True)
                 mock_term_input.inkey.return_value = mock_key
-                mock_term_input.cbreak.return_value.__enter__ = Mock(
-                    return_value=None
-                )
+                mock_term_input.cbreak.return_value.__enter__ = Mock(return_value=None)
                 mock_term_input.cbreak.return_value.__exit__ = Mock(return_value=None)
 
                 action = input_handler.get_input()
