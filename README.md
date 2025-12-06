@@ -62,6 +62,51 @@ python -c "from src.game.game_engine import GameEngine, GameMode; engine = GameE
 
 This will simulate 100 game ticks, allowing NPCs, factions, and the world to evolve autonomously.
 
+### Admin Commands
+
+Admin commands provide tools for inspecting, debugging, and manipulating the game world. Commands are available both in-game and in headless mode.
+
+#### Using Admin Commands in Code
+
+```python
+from src.admin import execute_command
+from src.world.world_state import WorldState
+
+# Create a world state
+world = WorldState()
+
+# Execute admin commands
+result = execute_command("advance_time", world, ticks=10)
+print(result.message)  # "Advanced time by 10 ticks (from 0 to 10)"
+
+result = execute_command("show_factions", world, detail=True)
+print(result.message)  # Display faction information
+```
+
+#### Available Commands
+
+- **advance_time** - Advance game time by specified ticks
+  ```python
+  execute_command("advance_time", world, ticks=100)
+  ```
+
+- **show_factions** - Display faction information
+  ```python
+  execute_command("show_factions", world, detail=True)
+  ```
+
+- **teleport** - Teleport an entity to a location
+  ```python
+  execute_command("teleport", world, "entity_id", "location_id", x=10, y=20)
+  ```
+
+- **reveal_map** - Reveal map areas (remove fog of war)
+  ```python
+  execute_command("reveal_map", world, area="all")
+  ```
+
+For complete admin command documentation, see [Admin Commands Reference](Documentation/admin-commands.md).
+
 ### Documentation
 
 For detailed implementation plans and design documentation, see:
@@ -70,6 +115,7 @@ For detailed implementation plans and design documentation, see:
 - [Admin Commands Reference](Documentation/admin-commands.md)
 - [UI Architecture](Documentation/ui-architecture.md)
 - [World Simulation](Documentation/world-simulation.md)
+
 
 ## Development
 
