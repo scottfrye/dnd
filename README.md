@@ -147,6 +147,7 @@ This will launch a simple interactive terminal display showing:
 
 **Controls:**
 - `hjkl` - Vi-keys for movement (h=west, j=south, k=north, l=east)
+- `yubn` - Diagonal movement (y=NW, u=NE, b=SW, n=SE)
 - Arrow keys - Alternative movement controls
 - Numpad (2468) - Another movement option
 - `.` or `5` - Wait/rest
@@ -155,6 +156,8 @@ This will launch a simple interactive terminal display showing:
 
 The demo showcases the abstracted Display and InputHandler interfaces that allow
 for different UI backends to be implemented in the future (GUI, web, etc.).
+
+For detailed manual testing instructions, see: [Documentation/ui-manual-tests.md](Documentation/ui-manual-tests.md)
 
 ## UI Architecture
 
