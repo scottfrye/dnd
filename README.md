@@ -66,6 +66,10 @@ This will simulate 100 game ticks, allowing NPCs, factions, and the world to evo
 
 For detailed implementation plans and design documentation, see:
 - [Temple of Elemental Evil - AD&D 1E Roguelike Implementation Plan](Documentation/Temple%20of%20Elemental%20Evil%20-%20AD%26D%201E%20Roguelike%20Implementation%20Plan.md)
+- [Save/Load Format Documentation](Documentation/save-load-format.md)
+- [Admin Commands Reference](Documentation/admin-commands.md)
+- [UI Architecture](Documentation/ui-architecture.md)
+- [World Simulation](Documentation/world-simulation.md)
 
 ## Development
 
