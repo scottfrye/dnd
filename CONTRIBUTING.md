@@ -136,13 +136,39 @@ When submitting a pull request:
 5. Update documentation if needed
 6. Keep changes focused and atomic
 
+## Issue Labels
+
+This project uses a standardized set of labels to organize and categorize issues and pull requests:
+
+### Type Labels
+- **`bug`**: Something isn't working correctly
+- **`enhancement`**: New feature or improvement request
+- **`docs`**: Documentation improvements or additions
+
+### Area Labels
+- **`epic`**: High-level tracking issues that encompass multiple sub-issues
+- **`infra`**: Infrastructure, build system, CI/CD, or deployment changes
+- **`data`**: Game data, content, or configuration files
+- **`rules`**: Game rules, mechanics, or AD&D 1E rule implementations
+- **`ui`**: User interface, display, or input handling
+- **`simulation`**: World simulation, AI, or NPC behavior
+
+### Additional Labels
+- **`question`**: Questions or support requests
+- **`testing`**: Test-related work
+- **`wontfix`**: Issues that will not be addressed
+- **`duplicate`**: Duplicate of an existing issue
+- **`good first issue`**: Good for newcomers to the project
+
+When creating an issue, please apply appropriate labels to help with organization and discoverability. Multiple labels can be applied to a single issue (e.g., both `enhancement` and `ui` for a UI feature request).
+
 ## Questions or Issues?
 
 If you have questions or encounter issues:
 
 1. Check existing issues on GitHub
 2. Create a new issue with a clear description
-3. Tag it appropriately (bug, enhancement, question, etc.)
+3. Tag it appropriately using the labels described above
 
 ## License
 
