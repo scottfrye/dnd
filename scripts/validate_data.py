@@ -95,7 +95,8 @@ def validate_data_directory(
             continue
 
         validator = Draft7Validator(schema)
-        json_files = list(type_dir.glob("*.json"))
+        # Use ** to recursively find all JSON files including subdirectories
+        json_files = list(type_dir.glob("**/*.json"))
 
         if verbose:
             print(f"\nValidating {data_type} ({len(json_files)} files):")
