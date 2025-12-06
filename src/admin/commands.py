@@ -15,6 +15,9 @@ from src.world.world_state import WorldState
 
 logger = logging.getLogger(__name__)
 
+# Type alias for admin command functions
+CommandFunc = Callable[..., "CommandResult"]
+
 
 class CommandResult:
     """Result of executing an admin command.
@@ -158,11 +161,11 @@ class AdminCommandRegistry:
 
     def __init__(self) -> None:
         """Initialize the command registry."""
-        self._commands: dict[str, Callable] = {}
+        self._commands: dict[str, CommandFunc] = {}
         self._descriptions: dict[str, str] = {}
         self._register_core_commands()
 
-    def register(self, name: str, func: Callable, description: str = "") -> None:
+    def register(self, name: str, func: CommandFunc, description: str = "") -> None:
         """Register a command with the registry.
 
         Args:
@@ -174,7 +177,7 @@ class AdminCommandRegistry:
         self._descriptions[name] = description
         logger.debug("Registered command: %s", name)
 
-    def get_command(self, name: str) -> Callable | None:
+    def get_command(self, name: str) -> CommandFunc | None:
         """Get a command by name.
 
         Args:

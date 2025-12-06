@@ -20,12 +20,12 @@ def main():
 
     # Create a world state and add some entities
     world = WorldState()
-    
+
     # Add a player entity
     player_pos = Position(x=10, y=10, location_id="hommlet")
     player = Entity(id="player", position=player_pos, properties={"hp": 50, "name": "Adventurer"})
     world.add_entity(player)
-    
+
     # Add an NPC
     npc_pos = Position(x=15, y=20, location_id="hommlet")
     npc = Entity(id="npc_burne", position=npc_pos, properties={"hp": 20, "name": "Burne the Wizard"})
@@ -73,7 +73,7 @@ def main():
     # Demonstrate integration with GameEngine
     print("5. Using admin commands with GameEngine headless mode...")
     engine = GameEngine(world=world, mode=GameMode.HEADLESS)
-    print(f"   Running 50 ticks of headless simulation...")
+    print("   Running 50 ticks of headless simulation...")
     engine.run_headless(50)
     print(f"   Final world time: {world.time} ticks")
     print()
