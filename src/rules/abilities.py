@@ -4,7 +4,30 @@ Provides storage and modifier calculations for the six primary ability scores:
 Strength (STR), Dexterity (DEX), Constitution (CON),
 Intelligence (INT), Wisdom (WIS), and Charisma (CHA).
 
-Modifiers are based on AD&D 1E rules from the Player's Handbook.
+Modifiers are based on AD&D 1E rules from the Player's Handbook Tables I, II, and III.
+
+Public API:
+    - AbilityScores: Dataclass for storing all six ability scores
+    - get_strength_hit_modifier: STR bonus/penalty to attack rolls
+    - get_strength_damage_modifier: STR bonus/penalty to damage
+    - get_strength_modifiers: Both STR modifiers as tuple
+    - get_dexterity_ac_modifier: DEX adjustment to Armor Class
+    - get_dexterity_initiative_modifier: DEX bonus/penalty to initiative
+    - get_dexterity_modifiers: Both DEX modifiers as tuple
+    - get_constitution_hp_modifier: CON bonus/penalty to HP per level
+
+Example Usage:
+    >>> from src.rules.abilities import AbilityScores, get_strength_modifiers
+    >>> scores = AbilityScores(strength=18, dexterity=14, constitution=16,
+    ...                         intelligence=10, wisdom=12, charisma=8)
+    >>> hit_bonus, dmg_bonus = get_strength_modifiers(scores.strength)
+    >>> print(f"Attack: {hit_bonus:+d}, Damage: {dmg_bonus:+d}")
+    Attack: +1, Damage: +2
+
+References:
+    - AD&D 1E Player's Handbook, Table I: Strength
+    - AD&D 1E Player's Handbook, Table II: Dexterity
+    - AD&D 1E Player's Handbook, Table III: Constitution
 """
 
 from dataclasses import dataclass
@@ -15,15 +38,31 @@ class AbilityScores:
     """Storage for the six primary ability scores in AD&D 1E.
 
     Each ability score typically ranges from 3-18, with exceptional
-    strength (for fighters) potentially reaching 18/00.
+    strength (for fighters) potentially reaching 18/00. Scores can
+    go as low as 1 and as high as 25 for monsters or magically-enhanced
+    characters.
+
+    The dataclass validates that all scores are positive integers.
+    Values below 1 or non-integer values will raise ValueError.
 
     Attributes:
         strength: Physical power, affects hit and damage bonuses
         dexterity: Agility, affects AC and initiative
-        constitution: Health, affects HP bonus
-        intelligence: Mental acuity
-        wisdom: Perception and willpower
-        charisma: Leadership and personality
+        constitution: Health, affects HP bonus per level
+        intelligence: Mental acuity, affects languages and mage spells (future)
+        wisdom: Perception and willpower, affects cleric spells (future)
+        charisma: Leadership and personality, affects reactions (future)
+
+    Example:
+        >>> scores = AbilityScores(strength=16, dexterity=12, constitution=14,
+        ...                         intelligence=10, wisdom=13, charisma=8)
+        >>> scores.strength
+        16
+        >>> scores.constitution
+        14
+
+    Raises:
+        ValueError: If any ability score is less than 1 or not an integer.
     """
 
     strength: int

@@ -1,17 +1,46 @@
 """Combat system module for AD&D 1E.
 
-Provides basic attack resolution hooks using THAC0 (To Hit Armor Class 0)
-mechanics. THAC0 represents the attack roll needed to hit a target with AC 0.
+Provides attack resolution using THAC0 (To Hit Armor Class 0) mechanics.
+THAC0 represents the attack roll needed to hit a target with AC 0.
 
 In AD&D 1E:
-- Lower AC is better (0 is good, negative is excellent)
-- To determine if an attack hits: attack roll + modifiers >= THAC0 - target_AC
-- Alternatively: attack roll >= THAC0 - target_AC - modifiers
+- Lower AC is better (AC 0 is good, negative AC is excellent)
+- To determine if an attack hits: roll + modifiers >= THAC0 - target_AC
+- Natural 20 always hits, natural 1 always misses
 
 This module provides:
 - THAC0 calculation based on class and level
-- Attack resolution given attacker/defender stats
-- Hit/miss determination with modifier support
+- Attack resolution with full hit/miss determination
+- Support for four class groups with different progression rates
+- Critical hit and critical miss handling
+- Deterministic testing support
+
+Class Groups:
+    - fighter: Fighters, Paladins, Rangers (THAC0 improves every level)
+    - cleric: Clerics, Druids (THAC0 improves every 3 levels)
+    - thief: Thieves, Assassins, Monks (THAC0 improves every 4 levels)
+    - magic_user: Magic-Users, Illusionists (THAC0 improves every 5 levels)
+
+Public API:
+    - CombatStats: Dataclass for attacker/defender statistics
+    - AttackResult: Dataclass for attack resolution results
+    - get_thac0: Get THAC0 value for class/level
+    - calculate_target_number: Calculate required roll to hit
+    - resolve_attack: Full attack resolution with CombatStats
+    - resolve_attack_simple: Simplified attack resolution
+
+Example Usage:
+    >>> from src.rules.combat_system import get_thac0, CombatStats, resolve_attack
+    >>> # Level 5 fighter (THAC0 16) with +1 STR bonus attacks AC 5
+    >>> attacker = CombatStats(thac0=get_thac0(5, "fighter"), hit_modifier=1)
+    >>> defender = CombatStats(armor_class=5)
+    >>> result = resolve_attack(attacker, defender, roll=12)
+    >>> print(f"Hit: {result.hit}, Roll: {result.roll}, Need: {result.target_number}")
+    Hit: True, Roll: 12, Need: 11
+
+References:
+    - AD&D 1E Dungeon Master's Guide, Combat Tables
+    - AD&D 1E Player's Handbook, Combat section
 """
 
 from dataclasses import dataclass
@@ -121,11 +150,28 @@ _MAGIC_USER_THAC0: dict[int, int] = {
 class CombatStats:
     """Combat-related statistics for an attacker or defender.
 
+    This dataclass encapsulates the combat statistics needed for attack
+    resolution in AD&D 1E. All fields have sensible defaults for quick
+    instantiation.
+
     Attributes:
-        thac0: To Hit Armor Class 0 value (for attackers)
-        armor_class: Armor Class value (for defenders, lower is better)
-        hit_modifier: Bonus or penalty to attack rolls
-        damage_modifier: Bonus or penalty to damage rolls
+        thac0: To Hit Armor Class 0 value. Lower is better. Typical range
+               is 21 (level 0/1) to 1 (level 20 fighter). Used by attackers.
+        armor_class: Armor Class value. Lower is better in AD&D 1E. Typical
+                     range is 10 (no armor) to -10 (magical plate + shield).
+                     Used by defenders.
+        hit_modifier: Bonus or penalty to attack rolls. Positive values help
+                      hit, negative values hinder. Typically from Strength,
+                      magic weapons, situational bonuses.
+        damage_modifier: Bonus or penalty to damage rolls. Not used in attack
+                         resolution but stored for convenience. Typically from
+                         Strength, magic weapons.
+
+    Example:
+        >>> # Create a fighter with strength bonus
+        >>> attacker = CombatStats(thac0=16, hit_modifier=1, damage_modifier=2)
+        >>> # Create a defender in chain mail
+        >>> defender = CombatStats(armor_class=5)
     """
 
     thac0: int = 20
@@ -138,13 +184,31 @@ class CombatStats:
 class AttackResult:
     """Result of an attack resolution.
 
+    Contains all information about an attack attempt, including whether it
+    hit, the dice rolls, and any critical results. Use this to determine
+    outcomes and provide detailed combat feedback.
+
     Attributes:
-        hit: Whether the attack was successful
-        roll: The raw d20 roll value
-        total_attack: The total attack value (roll + modifiers)
-        target_number: The number needed to hit
-        critical_hit: Whether a natural 20 was rolled
-        critical_miss: Whether a natural 1 was rolled
+        hit: Whether the attack was successful. True if the attack landed,
+             False if it missed.
+        roll: The raw d20 roll value (1-20). Check this against 20 for
+              critical hits or 1 for critical misses.
+        total_attack: The total attack value after modifiers (roll + hit_modifier).
+                      This is compared to target_number to determine success.
+        target_number: The number needed on the d20 to hit (before modifiers).
+                       Calculated as THAC0 - target_AC.
+        critical_hit: True if a natural 20 was rolled. Critical hits always
+                      succeed regardless of target_number.
+        critical_miss: True if a natural 1 was rolled. Critical misses always
+                       fail regardless of modifiers.
+
+    Example:
+        >>> result = AttackResult(hit=True, roll=15, total_attack=17,
+        ...                       target_number=10, critical_hit=False,
+        ...                       critical_miss=False)
+        >>> if result.hit:
+        ...     print(f"Hit with a roll of {result.roll}!")
+        Hit with a roll of 15!
     """
 
     hit: bool
