@@ -82,6 +82,8 @@ Part of Epic: Persistence & Admin
 See Documentation/admin-commands.md for complete command reference and examples.
 
 ## Related Issues
-- Related to: Save/Load System (#TBD)
-- Depends on: World State Management (#TBD)
-- Depends on: UI Input System (Completed)
+- Related to: Save/Load System (#[to-be-created])
+- Depends on: World State Management (#[to-be-created])
+- Depends on: UI Input System (#[completed])
+
+Note: Replace #[to-be-created] with actual issue numbers when creating this issue. Replace #[completed] with the actual completed issue number if applicable.

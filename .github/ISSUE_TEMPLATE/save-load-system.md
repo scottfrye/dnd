@@ -65,5 +65,7 @@ Part of Epic: Persistence & Admin
 - Handle gracefully when save files are corrupted or from incompatible versions
 
 ## Related Issues
-- Depends on: World State Management (#TBD)
-- Related to: Admin Commands System (#TBD)
+- Depends on: World State Management (#[to-be-created])
+- Related to: Admin Commands System (#[to-be-created])
+
+Note: Replace #[to-be-created] with actual issue numbers when creating this issue.

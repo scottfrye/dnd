@@ -318,10 +318,11 @@ world_state = load("saves/slot_1.yaml")
 
 ### Save File Version History
 
-- **1.0.0** (Current)
-  - Initial save format
-  - Full WorldState serialization
-  - Support for YAML and JSON
+- **1.0.0** (Current - Initial Release)
+  - Initial save format with comprehensive WorldState serialization
+  - Full WorldState serialization including entities, locations, factions, and events
+  - Support for both YAML and JSON formats
+  - Note: Future versions will be documented here as they are released
 
 ### Version Migration
 
@@ -410,9 +411,9 @@ Rufus the Fighter (npc_002)
 
 ### File Size
 
-- Typical save file: 100-500 KB for moderate game state
-- Large games with many entities: 1-5 MB
-- Consider compression for very large saves
+- Typical save file: 100-500 KB (based on ~100-300 entities, 20-50 locations, 5-10 factions)
+- Large games with many entities: 1-5 MB (1000+ entities, 100+ locations, extended event history)
+- Consider compression for very large saves (10+ MB uncompressed)
 
 ### Save Time
 

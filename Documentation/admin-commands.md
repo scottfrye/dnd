@@ -783,12 +783,14 @@ admin:
 
 ## Security
 
-For multiplayer or competitive scenarios:
+While the game is currently single-player, these security features are designed for future extensibility:
 
-1. **Authentication**: Admin mode requires password
-2. **Logging**: All admin commands are logged
-3. **Restrictions**: Some commands can be disabled
-4. **Audit Trail**: Complete audit trail of admin actions
+1. **Authentication**: Admin mode can require password (future enhancement)
+2. **Logging**: All admin commands are logged for audit trail
+3. **Restrictions**: Commands can be selectively disabled via configuration
+4. **Audit Trail**: Complete audit trail of admin actions for debugging
+
+Note: In single-player mode, security is primarily for preventing accidental destructive actions through confirmation prompts.
 
 ## Best Practices
 
