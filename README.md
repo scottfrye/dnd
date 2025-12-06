@@ -34,6 +34,39 @@ dnd/
 └── README.md          # This file
 ```
 
+## Quick Start
+
+### Installation
+
+Install the core dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Running Tests
+
+Run the test suite with pytest:
+
+```bash
+pytest
+```
+
+### Headless Simulation
+
+Run the game in autonomous simulation mode without player input:
+
+```bash
+python -c "from src.game.game_engine import GameEngine, GameMode; engine = GameEngine(mode=GameMode.HEADLESS); engine.run_headless(100)"
+```
+
+This will simulate 100 game ticks, allowing NPCs, factions, and the world to evolve autonomously.
+
+### Documentation
+
+For detailed implementation plans and design documentation, see:
+- [Temple of Elemental Evil - AD&D 1E Roguelike Implementation Plan](Documentation/Temple%20of%20Elemental%20Evil%20-%20AD%26D%201E%20Roguelike%20Implementation%20Plan.md)
+
 ## Development
 
 ### Requirements
