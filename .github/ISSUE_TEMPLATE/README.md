@@ -4,7 +4,9 @@ This directory contains templates for creating structured issues in the Temple o
 
 ## Available Templates
 
-### Epic Template (`epic.md`)
+### General Templates
+
+#### Epic Template (`epic.md`)
 Use this template for high-level tracking issues that encompass multiple sub-issues.
 
 **When to use:**
@@ -12,7 +14,15 @@ Use this template for high-level tracking issues that encompass multiple sub-iss
 - Organizing related work into cohesive units
 - Long-term development initiatives
 
-### Save/Load System (`save-load-system.md`)
+#### Feature Request (`feature_request.md`)
+Template for suggesting new features or enhancements.
+
+#### Bug Report (`bug_report.md`)
+Template for reporting bugs or issues.
+
+### Specific Feature Templates
+
+#### Save/Load System (`save-load-system.md`)
 Template for implementing the game state persistence system.
 
 **Scope:**
@@ -23,7 +33,7 @@ Template for implementing the game state persistence system.
 
 **Related Documentation:** [Documentation/save-load-format.md](../../Documentation/save-load-format.md)
 
-### Admin Commands (`admin-commands.md`)
+#### Admin Commands (`admin-commands.md`)
 Template for implementing administrative commands for world inspection and debugging.
 
 **Scope:**
@@ -35,6 +45,92 @@ Template for implementing administrative commands for world inspection and debug
 
 **Related Documentation:** [Documentation/admin-commands.md](../../Documentation/admin-commands.md)
 
+### Development Phase Templates
+
+These templates correspond to the major development phases outlined in the [Next Development Phase Plan](../../Documentation/Temple%20of%20Elemental%20Evil%20-%20Next%20Development%20Phase.md).
+
+#### Phase A: Character System Foundation (`phase-a-character-system.md`)
+Template for implementing AD&D 1E character creation with classes and races.
+
+**Scope:**
+- Character classes (Fighter, Cleric, Magic-User, Thief)
+- Races (Human, Elf, Dwarf, Halfling)
+- Saving throws system
+- Character entity implementation
+- Full AD&D 1E stat calculations
+
+**Duration:** 3-4 weeks  
+**Priority:** HIGH (blocking)
+
+#### Phase B: Faction & Location Systems (`phase-b-faction-location.md`)
+Template for implementing faction management and location system for world simulation.
+
+**Scope:**
+- Faction registry and relationship tracking
+- Location manager with movement graph
+- Faction AI for autonomous behavior
+- Temple of Elemental Evil factions (7 factions)
+- Territory control mechanics
+
+**Duration:** 3-4 weeks  
+**Priority:** HIGH (required for simulation)
+
+#### Phase C: Creatures & Encounters (`phase-c-creatures-encounters.md`)
+Template for implementing monster and NPC entities for encounters.
+
+**Scope:**
+- Monster entity system
+- NPC entity system
+- Item system (weapons, armor, equipment)
+- Encounter manager
+- Enhanced NPC AI behaviors
+
+**Duration:** 2-3 weeks  
+**Priority:** HIGH (required for gameplay)
+
+#### Phase D: Dungeon Crawling & Exploration (`phase-d-dungeon-exploration.md`)
+Template for enabling player exploration and dungeon mechanics.
+
+**Scope:**
+- Movement and collision detection
+- Map management system
+- Line of sight and visibility
+- Trap and secret door mechanics
+- Basic dialogue system
+- Enhanced player actions
+
+**Duration:** 2-3 weeks  
+**Priority:** MEDIUM
+
+#### Phase E: Temple Content Population (`phase-e-content-population.md`)
+Template for populating Temple of Elemental Evil locations and NPCs.
+
+**Scope:**
+- Hommlet village (20+ locations)
+- Moathouse ruins (first dungeon)
+- Nulb village
+- Temple exterior and dungeon levels
+- All named NPCs with stats
+- Monster spawns and treasure
+
+**Duration:** 4-6 weeks (incremental)  
+**Priority:** MEDIUM (can be incremental)
+
+#### Phase F: Remaining Rules & Polish (`phase-f-rules-polish.md`)
+Template for completing remaining AD&D 1E rules and polishing features.
+
+**Scope:**
+- Experience and leveling system
+- Spell system (initial subset)
+- Morale system
+- Magic items (basic)
+- Enhanced admin commands
+- Performance optimization
+- Documentation completion
+
+**Duration:** 3-4 weeks  
+**Priority:** MEDIUM
+
 ## Creating Issues from Templates
 
 ### Via GitHub Web Interface
@@ -44,6 +140,29 @@ Template for implementing administrative commands for world inspection and debug
 3. Select the appropriate template
 4. Fill in the template fields
 5. Submit the issue
+
+### For Development Phases
+
+The six development phase templates (Phase A-F) are designed to be created as issues to track the implementation of the [Next Development Phase Plan](../../Documentation/Temple%20of%20Elemental%20Evil%20-%20Next%20Development%20Phase.md).
+
+**Recommended workflow:**
+
+1. **Create issues for all phases** to establish the backlog
+2. **Work phases in order** (A → B → C → D → E → F)
+   - Phase A is blocking for most other work
+   - Phase B is required for simulation features
+   - Phase C depends on A and B
+   - Phase E can be done incrementally alongside other phases
+3. **Track progress** by checking off items within each phase issue
+4. **Link related work** by referencing issue numbers in commits and PRs
+
+**Dependencies:**
+- Phase A → Enables Phase C (NPCs need character system)
+- Phase B → Enables Phase C, D, E (need locations and factions)
+- Phase C → Enables Phase D (need creatures for encounters)
+- Phase D → Enhances Phase E (exploration for content)
+
+**Timeline:** 17-24 weeks total for complete core implementation
 
 ### For Epic: Persistence & Admin
 
@@ -133,12 +252,42 @@ Resolves #44
 
 Recommended labels for these issues:
 
+### General Labels
 - `epic` - For epic tracking issues
 - `enhancement` - For new features
-- `persistence` - For save/load related work
-- `admin` - For admin command work
+- `bug` - For bug reports
 - `documentation` - For documentation tasks
 - `testing` - For test-related work
+
+### Domain-Specific Labels
+- `persistence` - For save/load related work
+- `admin` - For admin command work
+- `rules` - For AD&D 1E rules implementation
+- `character-system` - For character creation and management
+- `faction-system` - For faction and territory management
+- `world-simulation` - For world simulation features
+- `monsters` - For monster implementation
+- `npcs` - For NPC implementation
+- `encounters` - For encounter generation
+- `exploration` - For dungeon crawling features
+- `dungeon-crawling` - For exploration mechanics
+- `content` - For game content (locations, NPCs, etc.)
+- `temple-of-elemental-evil` - For ToEE-specific content
+- `spells` - For spell system
+- `magic-items` - For magic item system
+
+### Phase Labels
+- `phase-a` - Phase A: Character System Foundation
+- `phase-b` - Phase B: Faction & Location Systems
+- `phase-c` - Phase C: Creatures & Encounters
+- `phase-d` - Phase D: Dungeon Crawling & Exploration
+- `phase-e` - Phase E: Temple Content Population
+- `phase-f` - Phase F: Remaining Rules & Polish
+
+### Priority Labels (Recommended)
+- `priority-high` - Blocking or critical work
+- `priority-medium` - Important but not blocking
+- `priority-low` - Nice to have, can be deferred
 
 ## Checklist Format
 
