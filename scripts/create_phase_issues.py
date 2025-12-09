@@ -29,7 +29,22 @@ except ImportError:
 
 
 def parse_frontmatter(content: str) -> Dict[str, Any]:
-    """Extract YAML frontmatter from markdown file."""
+    """
+    Extract YAML frontmatter from markdown file.
+    
+    Note: This is a simple parser designed for GitHub issue templates
+    with standard formatting. For more complex YAML, use PyYAML.
+    
+    Handles:
+    - Unix line endings (\\n)
+    - Simple key: value pairs
+    - Labels arrays with single or double quotes
+    
+    Does not handle:
+    - Windows line endings (\\r\\n) - convert to Unix first
+    - Nested quotes in values
+    - Complex YAML structures
+    """
     frontmatter_match = re.match(r'^---\n(.*?)\n---\n', content, re.DOTALL)
     if not frontmatter_match:
         return {}

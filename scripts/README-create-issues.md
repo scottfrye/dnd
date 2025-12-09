@@ -46,7 +46,17 @@ This will create the actual GitHub issues.
 
 If you prefer to run the script locally or need more control:
 
-### Requirements:
+## Requirements
+
+The script is designed to work with GitHub issue templates that follow these conventions:
+- YAML frontmatter enclosed in `---` markers
+- Unix line endings (`\n`)
+- Standard key: value format
+- Labels in array format: `['label1', 'label2']`
+
+The script works perfectly with the phase templates in this repository. For more complex YAML parsing needs, the script could be enhanced to use PyYAML.
+
+### Python Dependencies
 
 ```bash
 pip install PyGithub
