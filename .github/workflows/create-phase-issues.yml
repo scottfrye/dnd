@@ -7,7 +7,7 @@ on:
         description: 'Run in dry-run mode (does not create issues)'
         required: false
         type: boolean
-        default: true
+        default: false
 
 permissions:
   issues: write  # Required to create issues
