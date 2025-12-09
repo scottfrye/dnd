@@ -38,18 +38,20 @@ def parse_frontmatter(content: str) -> Dict[str, str]:
     frontmatter = {}
     
     for line in frontmatter_text.split('\n'):
-        if ':' in line:
-            key, value = line.split(':', 1)
-            key = key.strip()
-            value = value.strip().strip("'\"")
+        if ':' not in line:
+            continue
             
-            # Handle labels array
-            if key == 'labels':
-                # Parse labels from format like ['label1', 'label2']
-                labels_match = re.findall(r"'([^']+)'", value)
-                frontmatter[key] = labels_match
-            else:
-                frontmatter[key] = value
+        key, value = line.split(':', 1)
+        key = key.strip()
+        value = value.strip().strip("'\"")
+        
+        # Handle labels array
+        if key == 'labels':
+            # Parse labels from format like ['label1', 'label2'] or ["label1", "label2"]
+            labels_match = re.findall(r"['\"]([^'\"]+)['\"]", value)
+            frontmatter[key] = labels_match
+        else:
+            frontmatter[key] = value
     
     return frontmatter
 
@@ -167,9 +169,19 @@ def main():
         'phase-f-rules-polish.md',
     ]
     
-    # Get repository root
-    repo_root = Path(__file__).parent.parent
-    template_dir = repo_root / '.github' / 'ISSUE_TEMPLATE'
+    # Get repository root - handle both running from repo root and scripts dir
+    script_path = Path(__file__).resolve()
+    if script_path.parent.name == 'scripts':
+        repo_root = script_path.parent.parent
+    else:
+        repo_root = script_path.parent
+    
+    # Allow override via environment variable
+    template_dir_override = os.environ.get('ISSUE_TEMPLATE_DIR')
+    if template_dir_override:
+        template_dir = Path(template_dir_override)
+    else:
+        template_dir = repo_root / '.github' / 'ISSUE_TEMPLATE'
     
     if not template_dir.exists():
         print(f"Error: Template directory not found: {template_dir}")
@@ -177,6 +189,7 @@ def main():
     
     # Process each template
     created_issues = []
+    found_templates = 0
     print("=" * 60)
     print("Creating GitHub Issues from Phase Templates")
     print("=" * 60)
@@ -188,6 +201,7 @@ def main():
             print(f"\n⚠️  Warning: Template not found: {template_path}")
             continue
         
+        found_templates += 1
         issue_url = create_issue_from_template(repo, template_path, dry_run)
         if issue_url:
             created_issues.append((phase_file, issue_url))
@@ -198,7 +212,9 @@ def main():
     print("=" * 60)
     
     if dry_run:
-        print(f"\nDry run complete. Would have created {len(phase_files)} issues.")
+        print(f"\nDry run complete. Would have created {found_templates} issues.")
+        if found_templates < len(phase_files):
+            print(f"  Note: Only {found_templates}/{len(phase_files)} template files were found")
         print("\nTo actually create the issues, run without --dry-run flag:")
         print("  python scripts/create_phase_issues.py")
     else:
@@ -206,8 +222,8 @@ def main():
         for filename, url in created_issues:
             print(f"  - {filename}: {url}")
         
-        if len(created_issues) < len(phase_files):
-            print(f"\n⚠️  Warning: Only {len(created_issues)}/{len(phase_files)} issues created")
+        if len(created_issues) < found_templates:
+            print(f"\n⚠️  Warning: Only {len(created_issues)}/{found_templates} issues created")
             print("  Check the output above for errors")
     
     print("\n" + "=" * 60)
