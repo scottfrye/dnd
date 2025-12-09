@@ -32,6 +32,7 @@ jobs:
           pip install PyGithub
       
       - name: Create GitHub Issues
+        id: create_issues
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -45,6 +46,7 @@ jobs:
           fi
       
       - name: Summary
+        if: success()
         run: |
           if [ "${{ inputs.dry_run }}" == "true" ]; then
             echo "### ✓ Dry Run Complete" >> $GITHUB_STEP_SUMMARY

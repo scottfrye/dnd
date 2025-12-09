@@ -43,18 +43,22 @@ def parse_frontmatter(content: str) -> Dict[str, Any]:
             
         key, value = line.split(':', 1)
         key = key.strip()
-        value = value.strip().strip("'\"")
+        value = value.strip()
         
         # Skip lines with empty keys
         if not key:
             continue
         
+        # Remove surrounding quotes
+        value = value.strip("'\"")
+        
         # Handle labels array
         if key == 'labels':
             # Parse labels from format like ['label1', 'label2'] or ["label1", "label2"]
-            labels_match = re.findall(r"['\"]([^'\"]+)['\"]", value)
-            frontmatter[key] = labels_match
+            labels_match = re.findall(r"['\"]([^'\"]+)['\"]", line)
+            frontmatter[key] = labels_match if labels_match else []
         else:
+            # Store value, even if empty (e.g., assignees: '')
             frontmatter[key] = value
     
     return frontmatter
