@@ -18,7 +18,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 
 try:
     from github import Github, GithubException
@@ -28,7 +28,7 @@ except ImportError:
     sys.exit(1)
 
 
-def parse_frontmatter(content: str) -> Dict[str, str]:
+def parse_frontmatter(content: str) -> Dict[str, Any]:
     """Extract YAML frontmatter from markdown file."""
     frontmatter_match = re.match(r'^---\n(.*?)\n---\n', content, re.DOTALL)
     if not frontmatter_match:
@@ -44,6 +44,10 @@ def parse_frontmatter(content: str) -> Dict[str, str]:
         key, value = line.split(':', 1)
         key = key.strip()
         value = value.strip().strip("'\"")
+        
+        # Skip lines with empty keys
+        if not key:
+            continue
         
         # Handle labels array
         if key == 'labels':
