@@ -1,0 +1,57 @@
+name: Create Phase Issues
+
+on:
+  workflow_dispatch:  # Manual trigger only
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (does not create issues)'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  issues: write  # Required to create issues
+  contents: read
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyGithub
+      
+      - name: Create GitHub Issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            echo "Running in dry-run mode..."
+            python scripts/create_phase_issues.py --dry-run
+          else
+            echo "Creating issues..."
+            python scripts/create_phase_issues.py
+          fi
+      
+      - name: Summary
+        run: |
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            echo "### ✓ Dry Run Complete" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "No issues were created. To create the issues, re-run this workflow with dry_run=false." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ✓ Issues Created Successfully" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check the [Issues page](https://github.com/${{ github.repository }}/issues) to see the newly created phase issues." >> $GITHUB_STEP_SUMMARY
+          fi
