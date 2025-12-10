@@ -576,8 +576,16 @@ class MultiClassCharacter:
     def gain_experience(self, xp: int) -> None:
         """Add experience points, divided among all classes.
 
+        XP is divided evenly among all classes using integer division.
+        Any remainder is lost, per AD&D 1E multi-class rules.
+
         Args:
             xp: Total experience points to add
+
+        Note:
+            If XP is not evenly divisible by the number of classes,
+            the remainder is discarded. For example, 100 XP divided
+            among 3 classes gives 33 XP per class (1 XP lost).
         """
         if xp < 0:
             raise ValueError(f"Cannot gain negative experience: {xp}")
