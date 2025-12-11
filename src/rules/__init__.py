@@ -34,6 +34,18 @@ from src.rules.combat_system import (
     resolve_attack,
     resolve_attack_simple,
 )
+from src.rules.races import (
+    Dwarf,
+    Elf,
+    Halfling,
+    HillDwarf,
+    HighElf,
+    Human,
+    MountainDwarf,
+    Race,
+    RaceInfo,
+    WoodElf,
+)
 
 __all__ = [
     # Abilities
@@ -63,4 +75,15 @@ __all__ = [
     "calculate_target_number",
     "resolve_attack",
     "resolve_attack_simple",
+    # Races
+    "Race",
+    "RaceInfo",
+    "Human",
+    "Elf",
+    "HighElf",
+    "WoodElf",
+    "Dwarf",
+    "HillDwarf",
+    "MountainDwarf",
+    "Halfling",
 ]
