@@ -36,6 +36,40 @@ from dataclasses import dataclass
 
 from src.rules.abilities import AbilityScores
 
+# Common racial attributes (AD&D 1E PHB)
+_ELF_SPECIAL_ABILITIES = [
+    "90% resistance to sleep and charm spells",
+    "Surprise opponents 4 in 6 when alone or with other elves/halflings",
+    "Detect secret doors (1 in 6 within 10 feet, 2 in 6 when searching)",
+    "Detect concealed doors (3 in 6 when searching)",
+    "+1 to hit with bow, short sword, or long sword",
+]
+
+_ELF_LANGUAGES = [
+    "Common",
+    "Elvish",
+    "Gnome",
+    "Halfling",
+    "Goblin",
+    "Hobgoblin",
+    "Orcish",
+    "Gnoll",
+]
+
+_DWARF_SPECIAL_ABILITIES = [
+    "Saving throw bonus vs. magic based on constitution",
+    "Saving throw bonus vs. poison based on constitution",
+    "Detect grade or slope in passage (75%)",
+    "Detect new tunnel/passage construction (75%)",
+    "Detect sliding/shifting walls or rooms (66%)",
+    "Detect stonework traps, pits, and deadfalls (50%)",
+    "Determine approximate depth underground (50%)",
+    "+1 to hit orcs, half-orcs, goblins, and hobgoblins",
+    "AC bonus against giants, ogres, and titans based on size",
+]
+
+_DWARF_LANGUAGES = ["Common", "Dwarvish", "Gnome", "Goblin", "Kobold", "Orcish"]
+
 
 @dataclass
 class RaceInfo:
@@ -221,23 +255,8 @@ class HighElf(Elf):
                 "fighter_thief": 7,
                 "magic_user_thief": 10,
             },
-            special_abilities=[
-                "90% resistance to sleep and charm spells",
-                "Surprise opponents 4 in 6 when alone or with other elves/halflings",
-                "Detect secret doors (1 in 6 within 10 feet, 2 in 6 when searching)",
-                "Detect concealed doors (3 in 6 when searching)",
-                "+1 to hit with bow, short sword, or long sword",
-            ],
-            languages=[
-                "Common",
-                "Elvish",
-                "Gnome",
-                "Halfling",
-                "Goblin",
-                "Hobgoblin",
-                "Orcish",
-                "Gnoll",
-            ],
+            special_abilities=_ELF_SPECIAL_ABILITIES.copy(),
+            languages=_ELF_LANGUAGES.copy(),
             infravision_range=60,
         )
 
@@ -268,23 +287,8 @@ class WoodElf(Elf):
                 "fighter_thief": 7,
                 "magic_user_thief": 9,
             },
-            special_abilities=[
-                "90% resistance to sleep and charm spells",
-                "Surprise opponents 4 in 6 when alone or with other elves/halflings",
-                "Detect secret doors (1 in 6 within 10 feet, 2 in 6 when searching)",
-                "Detect concealed doors (3 in 6 when searching)",
-                "+1 to hit with bow, short sword, or long sword",
-            ],
-            languages=[
-                "Common",
-                "Elvish",
-                "Gnome",
-                "Halfling",
-                "Goblin",
-                "Hobgoblin",
-                "Orcish",
-                "Gnoll",
-            ],
+            special_abilities=_ELF_SPECIAL_ABILITIES.copy(),
+            languages=_ELF_LANGUAGES.copy(),
             infravision_range=60,
         )
 
@@ -328,18 +332,8 @@ class HillDwarf(Dwarf):
                 "assassin": 9,
                 "fighter_thief": 9,
             },
-            special_abilities=[
-                "Saving throw bonus vs. magic based on constitution",
-                "Saving throw bonus vs. poison based on constitution",
-                "Detect grade or slope in passage (75%)",
-                "Detect new tunnel/passage construction (75%)",
-                "Detect sliding/shifting walls or rooms (66%)",
-                "Detect stonework traps, pits, and deadfalls (50%)",
-                "Determine approximate depth underground (50%)",
-                "+1 to hit orcs, half-orcs, goblins, and hobgoblins",
-                "AC bonus against giants, ogres, and titans based on size",
-            ],
-            languages=["Common", "Dwarvish", "Gnome", "Goblin", "Kobold", "Orcish"],
+            special_abilities=_DWARF_SPECIAL_ABILITIES.copy(),
+            languages=_DWARF_LANGUAGES.copy(),
             infravision_range=60,
         )
 
@@ -366,18 +360,8 @@ class MountainDwarf(Dwarf):
                 "assassin": 9,
                 "fighter_thief": 9,
             },
-            special_abilities=[
-                "Saving throw bonus vs. magic based on constitution",
-                "Saving throw bonus vs. poison based on constitution",
-                "Detect grade or slope in passage (75%)",
-                "Detect new tunnel/passage construction (75%)",
-                "Detect sliding/shifting walls or rooms (66%)",
-                "Detect stonework traps, pits, and deadfalls (50%)",
-                "Determine approximate depth underground (50%)",
-                "+1 to hit orcs, half-orcs, goblins, and hobgoblins",
-                "AC bonus against giants, ogres, and titans based on size",
-            ],
-            languages=["Common", "Dwarvish", "Gnome", "Goblin", "Kobold", "Orcish"],
+            special_abilities=_DWARF_SPECIAL_ABILITIES.copy(),
+            languages=_DWARF_LANGUAGES.copy(),
             infravision_range=60,
         )
 
