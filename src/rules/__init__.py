@@ -14,6 +14,18 @@ from src.rules.abilities import (
     get_strength_hit_modifier,
     get_strength_modifiers,
 )
+from src.rules.character_classes import (
+    ArmorType,
+    Character,
+    Cleric,
+    DualClassCharacter,
+    Fighter,
+    MagicUser,
+    MultiClassCharacter,
+    Thief,
+    WeaponType,
+    calculate_hp,
+)
 from src.rules.combat_system import (
     AttackResult,
     CombatStats,
@@ -33,6 +45,17 @@ __all__ = [
     "get_dexterity_initiative_modifier",
     "get_dexterity_modifiers",
     "get_constitution_hp_modifier",
+    # Character Classes
+    "Character",
+    "Fighter",
+    "Cleric",
+    "MagicUser",
+    "Thief",
+    "MultiClassCharacter",
+    "DualClassCharacter",
+    "ArmorType",
+    "WeaponType",
+    "calculate_hp",
     # Combat System
     "CombatStats",
     "AttackResult",
