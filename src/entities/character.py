@@ -56,7 +56,8 @@ class Character:
         race: Character's race (Human, Elf, Dwarf, Halfling, etc.)
         character_class: Character's class (Fighter, Cleric, Magic-User, Thief)
         ability_scores: Six primary ability scores
-        inventory: List of items in character's inventory (scaffolding)
+        inventory: List of item dictionaries. Each item should have at least a
+                   'name' key. Example: [{"name": "Sword", "type": "weapon"}]
         hit_points: Current hit points (calculated from class + CON)
         max_hit_points: Maximum hit points
         armor_class: Armor Class (base 10 + DEX modifier + armor)
@@ -68,7 +69,7 @@ class Character:
         - HP is calculated from character class hit dice + constitution modifier
         - AC starts at 10 (no armor) and is modified by DEX and worn armor
         - THAC0 comes directly from the character class
-        - Inventory is currently a scaffolding (list of item names/dicts)
+        - Inventory is a scaffolding system using dictionaries for flexibility
     """
 
     name: str
@@ -233,7 +234,13 @@ class Character:
         """Add an item to inventory.
 
         Args:
-            item: Item dictionary with properties like name, type, etc.
+            item: Item dictionary with properties. Should include at least:
+                - name (str): Item name (required for remove_item)
+                - type (str): Item type (weapon, armor, potion, etc.)
+                - Additional properties as needed
+
+        Example:
+            >>> character.add_item({"name": "Long Sword", "type": "weapon", "damage": "1d8"})
         """
         self.inventory.append(item.copy())
 

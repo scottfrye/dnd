@@ -8,7 +8,7 @@ These tests verify that the character module correctly:
 - Handles damage and healing
 - Manages inventory
 - Serializes and deserializes characters
-- Achieves 90%+ code coverage
+- Achieves 100% code coverage
 """
 
 import pytest
