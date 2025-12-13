@@ -13,12 +13,12 @@ Example Usage:
     >>> from src.rules.abilities import AbilityScores
     >>> from src.rules.races import Human
     >>> from src.rules.character_classes import Fighter
-    >>> 
+    >>>
     >>> scores = AbilityScores(strength=16, dexterity=14, constitution=15,
     ...                         intelligence=10, wisdom=12, charisma=8)
     >>> race = Human()
     >>> char_class = Fighter(name="Conan", ability_scores=scores, level=1)
-    >>> 
+    >>>
     >>> character = Character(
     ...     name="Conan",
     ...     race=race,
@@ -37,7 +37,6 @@ from typing import Any
 
 from src.rules.abilities import (
     AbilityScores,
-    get_constitution_hp_modifier,
     get_dexterity_ac_modifier,
 )
 from src.rules.character_classes import Character as CharacterClass
@@ -406,7 +405,7 @@ def create_character(
         >>> from src.rules.abilities import AbilityScores
         >>> from src.rules.races import Human
         >>> from src.rules.character_classes import Fighter
-        >>> 
+        >>>
         >>> scores = AbilityScores(16, 14, 15, 10, 12, 8)
         >>> char = create_character("Conan", Human(), Fighter, scores, level=1)
     """

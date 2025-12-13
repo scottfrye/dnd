@@ -16,7 +16,7 @@ import pytest
 from src.entities.character import Character, create_character
 from src.rules.abilities import AbilityScores
 from src.rules.character_classes import Cleric, Fighter, MagicUser, Thief
-from src.rules.races import Halfling, HighElf, HillDwarf, Human, MountainDwarf, WoodElf
+from src.rules.races import Halfling, HighElf, HillDwarf, Human
 
 
 class TestCharacterCreation:
@@ -667,7 +667,14 @@ class TestCharacterSerialization:
 
     def test_from_dict_all_races(self):
         """Test deserializing characters with all race types."""
-        races = ["Human", "HighElf", "WoodElf", "HillDwarf", "MountainDwarf", "Halfling"]
+        races = [
+            "Human",
+            "HighElf",
+            "WoodElf",
+            "HillDwarf",
+            "MountainDwarf",
+            "Halfling",
+        ]
 
         for race_name in races:
             data = {
